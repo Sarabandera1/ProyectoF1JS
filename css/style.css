@@ -16,8 +16,16 @@
 }
 
 .boton{
-    text-align: center;
-    background-color: black;
-    text-decoration: white;
-    
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 185px;
+        cursor: pointer;
+        border-radius: 80px;
+        z-index: 10; /* Asegura que esté por encima */
 }
