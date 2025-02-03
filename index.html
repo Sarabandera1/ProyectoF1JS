@@ -1,17 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelo carro</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: black;
+        }
+        canvas {
+            width: 100%;
+            height: 100%;
+            display: block;
+            z-index: 10;
+        }
+    </style>
 </head>
 <body>
-  <div class="video">
-     <video autoplay loop muted playsinline id="background-video">
-       <source src="video/Gen-3 Alpha Turbo 26683363, dale animaciones par, DALL·E 2025-01-30 11, M 5.mp4" type="video/mp4">
-      </video>
-      <button src="#" class="boton">Entrar</button>
-  </div>
+    <canvas id="canvas3d"></canvas>
+
+    <script type="module" >
+        import { Application } from '@splinetool/runtime';
+
+        const canvas = document.getElementById('canvas3d');
+        const app = new Application(canvas);
+        app.load('https://prod.spline.design/iCXYKoriuvNaM6mI/scene.splinecode');
+
+
+    </script>
 </body>
 </html>
