@@ -1,22 +1,73 @@
-'use strict';
+var tl = gsap.timeline({scrollTrigger:{
+    trigger: ".about",
+    start: "0% 95%",
+    end: "70% 50%",
+    scrub: true,
+    // markers: true,
+}})
 
-const header = document.querySelector('header');
-const nav = document.querySelector('nav');
-const navbarMenuBtn = document.querySelector('.navbar-menu-btn');
+tl.to("#can",{
+    left: "-20%",   // Se mueve hacia la izquierda
+    scale: 1.8,     // Aumenta el tamaño para simular que se acerca
+    rotate: "0deg"  // Elimina la inclinación para que siga derecho
+}, 'choclate')
+tl.to("#choclate",{
+    top:"160%",
+    left: "23%"
+}, 'choclate')
+tl.to("#choclate2",{
+    width: "25%",
+    top:"160%",
+    right: "10%",
+    rotate: "-15deg"
+}, 'choclate')
+tl.to("#almod",{
+    top:"110%",
+    rotate: "130deg",
+    left: "70%"
+}, 'choclate')
+tl.to("#almod2",{
+    top:"110%",
+    rotate: "130deg",
+    left: "0%"
+}, 'choclate')
 
-const navbarForm = document.querySelector('.navbar-form');
-const navbarFormCloseBtn = document.querySelector('.navbar-form-close');
-const navbarSearchBtn = document.querySelector('.navbar-search-btn');
 
-function navIsActive(){
-    header.classList.toggle('active');
-    nav.classList.toggle('active');
-    navbarMenuBtn.classList.toggle('active');
-}
+var tl2 = gsap.timeline({scrollTrigger:{
+    trigger: ".product",
+    start: "0% 95%",
+    end: "20% 50%",
+    scrub: true,
+    // markers: true,
+}})
 
-navbarMenuBtn.addEventListener('click', navIsActive);
+tl2.to("#choclate",{
+    width:"28%",
+    left: "42%",
+    top: "214%"
+}, 'can')
+tl2.to("#choclate2",{
+    width:"15%",
+    left: "35%",
+    top: "270%"
+}, 'can')
+tl2.to("#can",{
+    width:"30%",
+    top: "218%",
+    left: "35%",
+    rotate: "0deg"
+}, 'can')
 
-const searchBarIsActive = () => navbarForm.classList.toggle('active');
+document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowLeft") {
+      gsap.to("#can", { left: "-10%", duration: 0.5 });
+    } else if (event.key === "ArrowRight") {
+      gsap.to("#can", { left: "50%", duration: 0.5 });
+    }
+  });
 
-navbarSearchBtn.addEventListener('click', searchBarIsActive);
-navbarFormCloseBtn.addEventListener('click', searchBarIsActive);
+  document.getElementById("show-more").addEventListener("click", function() {
+    const extraRows = document.getElementById("extra-rows");
+    extraRows.classList.toggle("hidden");
+    this.textContent = extraRows.classList.contains("hidden") ? "VER CLASIFICACIÓN COMPLETA" : "OCULTAR CLASIFICACIÓN";
+});

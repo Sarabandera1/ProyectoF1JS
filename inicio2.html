@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/incio.css">
+    <title></title>
+</head>
+<body> 
+    <div id="main">
+        <div class="video-background">
+            <video autoplay muted loop>
+                <source src="video/fondo1.mp4" type="video/mp4">
+            </video>
+        </div>  
+        <nav>
+            <a  href="#"><img class="logo" src="Assets\f1.png" alt=""></a>
+            <div class="cntr-nav">
+                <a href="#">Pilotos</a>
+                <a href="#">Carreras</a>
+                <a href="#">Autos</a>
+                <a href="#">Contactar</a>
+            </div>
+            <i class="ri-search-line"></i>
+        </nav>
+        <div class="header">
+            <h1>FORMULA1</h1>
+            <img id="can" src="Assets\pngwing.com.png" alt="">
+        </div>
+        <div class="about">
+            <div class="about-left">
+            </div>
+            <div class="about-right">
+                <div class="ranking-container">
+                    <div class="top-drivers">
+                        <div class="driver">
+                            <img src="img/lando2.jpeg" alt="Lando Norris">
+                            <p>Lando <strong>NORRIS</strong></p>
+                        </div>
+                        <div class="driver champion">
+                            <img src="img/max.jpeg" alt="Max Verstappen">
+                            <p>Máximo <strong>VERSTAPPEN</strong></p>
+                        </div>
+                        <div class="driver">
+                            <img src="img/charles.jpeg" alt="Charles Leclerc">
+                            <p>Charles <strong>LECLERC</strong></p>
+                        </div>
+                    </div>
+            
+                    <table class="ranking-table" id="ranking-table">
+                        <tr>
+                            <th>#</th>
+                            <th>Piloto</th>
+                            <th>Equipo</th>
+                            <th>Puntos</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><strong>Máximo VERSTAPPEN</strong></td>
+                            <td>Red Bull</td>
+                            <td>437</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><strong>Lando NORRIS</strong></td>
+                            <td>McLaren</td>
+                            <td>374</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><strong>Charles LECLERC</strong></td>
+                            <td>Ferrari</td>
+                            <td>356</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><strong>Óscar PIASTRI</strong></td>
+                            <td>McLaren</td>
+                            <td>292</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><strong>Carlos SAINZ</strong></td>
+                            <td>Ferrari</td>
+                            <td>290</td>
+                        </tr>
+                        <tbody id="extra-rows" class="hidden">
+                            <tr>
+                                <td>6</td>
+                                <td><strong>George RUSSELL</strong></td>
+                                <td>Mercedes</td>
+                                <td>245</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td><strong>Lewis HAMILTON</strong></td>
+                                <td>Mercedes</td>
+                                <td>230</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td><strong>Sergio PÉREZ</strong></td>
+                                <td>Red Bull</td>
+                                <td>220</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td><strong>Fernando ALONSO</strong></td>
+                                <td>Aston Martin</td>
+                                <td>200</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td><strong>Esteban OCON</strong></td>
+                                <td>Alpine</td>
+                                <td>180</td>
+                            </tr>
+                        </tbody>
+                    </table>
+            
+                    <button id="show-more">VER CLASIFICACIÓN COMPLETA</button>
+            
+                    <div class="sections">
+                        <a href="impacto.html" class="section">
+                            <img src="impacto.png" alt="Impacto">
+                            <p>Impacto</p>
+                        </a>
+                        <a href="calendario.html" class="section">
+                            <img src="img/image_resized (1).png" alt="Calendario de carreras">
+                            <p>Calendario de carreras</p>
+                        </a>
+                        <a href="podcasts.html" class="section">
+                            <img src="podcasts.png" alt="Podcasts">
+                            <p>Podcasts</p>
+                        </a>
+                        <a href="deportes.html" class="section">
+                            <img src="deportes.png" alt="Deportes electrónicos">
+                            <p>Deportes electrónicos</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="product">
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="js/inicio.js"></script>
+</body>
+</html>
