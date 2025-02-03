@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/equipos.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="card">
+        <div class="card-header">
+            <h2>Registro de Equipo</h2>
+        </div>
+        <form id="formCrearEquipo">
+            <div class="codigo" style="display: none;">
+                <label for="idEquipo" class="form-label">COD</label>
+                <input type="number" class="form-control" id="idEquipo" name="idEquipo" placeholder="${idEquipo}" disabled>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="nombreEquipo">Nombre del Equipo</label>
+                    <input type="text" class="form-control" id="nombreEquipo" name="nombreEquipo" placeholder="Ingrese el nombre del equipo" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="paisEquipo">País</label>
+                    <input type="text" class="form-control" id="paisEquipo" name="paisEquipo" placeholder="Ingrese el país" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label" for="motorEquipo">Motor</label>
+                    <input type="text" class="form-control" id="motorEquipo" name="motorEquipo" placeholder="Especifique el motor" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nombrePiloto1" class="form-label">Piloto Principal</label>
+                    <select class="nombrePilotoVeh form-control" name="nombrePiloto1" required>
+                        <option value="">Seleccionar Piloto</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="nombrePiloto2" class="form-label">Piloto Secundario</label>
+                    <select class="nombrePilotoVeh form-control" name="nombrePiloto2" required>
+                        <option value="">Seleccionar Piloto</option>
+                    </select>
+                </div>
+    
+                <div class="form-group">
+                    <label class="form-label" for="imagenEquipo">Imagen del Equipo</label>
+                    <div class="image-upload-container" id="dropZone">
+                        <i>📁</i>
+                        <p class="image-upload-text">Arrastra una imagen aquí o haz clic para seleccionar</p>
+                        <input type="file" class="file-input" id="imagenEquipo" name="imagenEquipo" accept="image/*" required>
+                    </div>
+                    <div class="preview-container">
+                        <img class="preview-image" id="imagePreview" alt="Preview">
+                    </div>
+                </div>
+            </div>
+    
+            <button id="btnRegistrar" type="submit" class="btn-submit">
+                Registrar Equipo
+            </button>
+            <div id="statusMessage" class="status-message"></div>
+        </form>
+    </div>
+    
+    <div class="card">
+        <h2 class="section-title">Nuestros Equipos</h2>
+        <button id="btnListar" type="button" class="btn-submit">
+            Mostrar Equipos
+        </button>
+        <div id="equiposCards">
+            <!-- Aquí se cargarán las tarjetas dinámicamente -->
+        </div>
+    </div>
+    
+</body>
+</html>
