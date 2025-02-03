@@ -1,24 +1,45 @@
-body {
-    margin: 0%;
-    font-family: "montserrat", sans-serif;
-    background-color: #000;
-}
+body {  
+    margin: 0;  
+    font-family: Arial, sans-serif;  
+    background-color: #121212;  
+    color: #ffffff;  
+}  
 
-header {
-    margin-top: 3em;
-    text-align: center;
-    color: white;
-}
+header {  
+    text-align: center;  
+    padding: 20px;  
+}  
 
-header h1 {
-    font-size: 2em;
-    font-weight: 900;
-}
+#model-container {  
+    width: 100%;  
+    height: 400px;  
+    background: #333;  
+    margin: 20px 0;  
+}  
 
-#container3D canvas {
-    width: 100vw !important;
-    height: 100vh !important;
-    position: absolute;
-    top: 0;
-    left: 0%;
+#circuit-form {  
+    text-align: center;  
+}  
+
+input, select, button {  
+    margin: 5px;  
+    padding: 10px;  
+    border: none;  
+    border-radius: 5px;  
+}  
+
+button {  
+    background-color: #ff2b2b;  
+    color: white;  
+    cursor: pointer;  
+    transition: background-color 0.3s;  
+}  
+
+button:hover {  
+    background-color: #ff8080;  
+}  
+
+#circuit-list {  
+    margin: 20px;  
+    text-align: center;  
 }
