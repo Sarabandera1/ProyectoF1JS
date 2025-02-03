@@ -17,9 +17,7 @@ body {
     font-size: 16px;
     letter-spacing: 1px;
     font-weight: normal;
-<<<<<<< HEAD
     background-color: var(--black);
-=======
 }
 .background-video {
     position: fixed;
@@ -33,13 +31,11 @@ body {
 nav, .container {
     position: relative;
     z-index: 1;
->>>>>>> daniela
 }
 
 a { text-decoration: none; }
 ul { list-style: none; }
 .container { max-width: 1080px; margin: auto; }
-<<<<<<< HEAD
 .row { display: flex; flex-wrap: wrap; }
 .justify-content-between { justify-content: space-between; }
 .align-items-center { align-items: center; }
@@ -48,12 +44,10 @@ ul { list-style: none; }
 
 /*NAV*/
 
-=======
 .justify-content-between { justify-content: space-between; }
 .full-screen { min-height: 100vh; padding: 80px 0 0; }
 .text-center { text-align: center; }
 
->>>>>>> daniela
 nav {
     width: 100%;
     background-color: var(--black);
@@ -80,15 +74,12 @@ nav {
 
 /*MAIN*/
 
-<<<<<<< HEAD
 .left, .right { flex: 0 0 50%; max-width: 50%; padding: 20px; }
     .left .line { width: 15%; height: 2px; background-color: var(--mainColor); display: inline-block; }
     .left h2 { margin-top: 25px; font-size: 50px; color: var(--white); line-height: 55px; }
         .left h2 span { color: var(--mainColor); font-size: 52px; }
     .left p { color: var(--whiteSmoke); font-size: 16px; margin-top: 20px; margin-bottom: 10px; }
 
-=======
->>>>>>> daniela
 .btn {
     height: 44px;
     padding: 0px 30px;
@@ -139,7 +130,6 @@ input[type="checkbox"] { display: none; }
     margin: 10px auto;
     cursor: pointer;
 }
-
     .checkbox:checked + label::before, .checkbox:not(:checked) + label::before {
         position: absolute;
         display: block;
@@ -152,21 +142,15 @@ input[type="checkbox"] { display: none; }
         content: '\f1e2';
         z-index: 20;
         top: -10px;
-<<<<<<< HEAD
         left: -10px;
-=======
->>>>>>> daniela
         line-height: 36px;
         text-align: center;
         font-size: 24px;
         transition: all .5s ease;
     }
-
         .checkbox:checked + label::before { transform: translateX(44px) rotate(-270deg); }
-
 .link { color: var(--whiteSmoke); margin-top: 20px; display: block; }
     .link:hover { color: var(--mainColor); }
-
 .card-3d-wrap {
     position: relative;
     width: 400px;
@@ -176,7 +160,6 @@ input[type="checkbox"] { display: none; }
     transform-style: preserve-3d;
     perspective: 800px;
 }
-
 .card-3d-wrapper {
     width: 100%;
     height: 100%;
@@ -186,45 +169,32 @@ input[type="checkbox"] { display: none; }
     transform-style: preserve-3d;
     transition: all .6s ease-out;
 }
-
     .checkbox:checked ~ .card-3d-wrap .card-3d-wrapper { transform: rotateY(180deg); }
-
 .card-front, .card-back { 
     width: 100%; 
     height: 100%;
-<<<<<<< HEAD
     background-color: #1B1B1B; 
     background-image: url('https://i.postimg.cc/4dnZCH03/background.png');
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: 300%;
-=======
     background: rgba(0,0, 0.6); /* Fondo oscuro con transparencia */
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: cover;
->>>>>>> daniela
     position: absolute;
     border-radius: 6px;
     left: 0;
     top: 0;
     transform-style: preserve-3d;
-<<<<<<< HEAD
-=======
     display: flex; /* Centra contenido si es necesario */
     align-items: center;
     justify-content: center;
->>>>>>> daniela
+
 }
-
     .card-back { transform: rotateY(180deg); }
-
 .center-wrap {
-<<<<<<< HEAD
-    position: absolute;
-=======
    position: absolute;
->>>>>>> daniela
     width: 100%;
     padding: 0 35px;
     top: 50%;
@@ -232,10 +202,7 @@ input[type="checkbox"] { display: none; }
     transform: translate3d(0, -50%, 35px) perspective(100px);
     display: block;
     z-index: 20;
-<<<<<<< HEAD
-=======
     text-align: center; 
->>>>>>> daniela
 }
 
 .heading { margin-bottom: 20px; font-size: 24px; text-transform: uppercase; }
