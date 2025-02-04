@@ -1,4 +1,3 @@
-
 {
   "name": "proyectof1js",
   "private": true,
@@ -14,5 +13,18 @@
   },
   "dependencies": {
     "@splinetool/runtime": "^1.9.59"
-  }
+  },
+  "description": "",
+  "main": "Gvehiculos.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sarabandera1/ProyectoF1JS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sarabandera1/ProyectoF1JS/issues"
+  },
+  "homepage": "https://github.com/Sarabandera1/ProyectoF1JS#readme"
 }
