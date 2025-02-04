@@ -7,9 +7,9 @@ var tl = gsap.timeline({scrollTrigger:{
 }})
 
 tl.to("#can",{
-    top: "95%",
-    left: "12%",
-    rotate: "30deg"
+    left: "-20%",   // Se mueve hacia la izquierda
+    scale: 1.8,     // Aumenta el tamaño para simular que se acerca
+    rotate: "0deg"  // Elimina la inclinación para que siga derecho
 }, 'choclate')
 tl.to("#choclate",{
     top:"160%",
@@ -58,3 +58,10 @@ tl2.to("#can",{
     rotate: "0deg"
 }, 'can')
 
+document.addEventListener("keydown", function(event) {
+    if (event.key === "ArrowLeft") {
+      gsap.to("#can", { left: "-10%", duration: 0.5 });
+    } else if (event.key === "ArrowRight") {
+      gsap.to("#can", { left: "50%", duration: 0.5 });
+    }
+  });
