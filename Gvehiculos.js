@@ -43,8 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // Selección para simulación
-    document.getElementById("simulate-btn").addEventListener("click", function () {
-        let selectedVehicle = vehicleSelect.value;
-        document.getElementById("selected-vehicle").textContent = "Vehículo seleccionado: " + vehicles[selectedVehicle].name;
-    });
+    // document.getElementById("simulate-btn").addEventListener("click", function () {
+    //     let selectedVehicle = vehicleSelect.value;
+    //     document.getElementById("selected-vehicle").textContent = "Vehículo seleccionado: " + vehicles[selectedVehicle].name;
+    // });
 });

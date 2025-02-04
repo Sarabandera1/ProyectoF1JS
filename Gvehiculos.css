@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background: url('background.jpg') no-repeat center center fixed;
+
   background-size: cover;
   color: white;
   text-align: center;
@@ -43,7 +43,7 @@ nav {
 
 .tab-content {
   display: none;
-  opacity: 0;
+
 }
 
 .tab-content.active {
@@ -62,8 +62,15 @@ nav {
   margin-top: 20px;
 }
 
-.vehicle-display img {
+
+
+#vehicle-image{
   width: 250px;
   height: auto;
   transition: opacity 0.5s ease-in-out;
+}
+
+.division{
+  display: flex;
+  gap: 20px;
 }
