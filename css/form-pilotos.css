@@ -1,0 +1,97 @@
+/* Estilo general de las tarjetas */
+.card {
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 800px;
+    margin: 20px;
+  }
+  
+  .card-header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .card-header h2 {
+    font-size: 24px;
+  }
+  
+  /* Estilo para el formulario */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-label {
+    margin-bottom: 8px;
+    font-size: 16px;
+  }
+  
+  .form-control {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #fff;
+    font-size: 16px;
+  }
+  
+  .form-control:focus {
+    outline: none;
+    border: 2px solid #4CAF50;
+  }
+  
+  .btn-submit {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .btn-submit:hover {
+    background-color: #45a049;
+  }
+  
+  #statusMessagePiloto {
+    margin-top: 10px;
+    font-size: 14px;
+  }
+  
+  /* Estilo para la carga de imagen */
+  .image-upload-container {
+    text-align: center;
+    padding: 20px;
+    border: 2px dashed #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .image-upload-text {
+    font-size: 16px;
+    color: #777;
+  }
+  
+  .preview-container {
+    display: none;
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .preview-image {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  

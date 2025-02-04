@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/form-pilotos.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Piloto</title>
+</head>
+
+<body class="background">
+  <div class="card">
+    <div class="card-header">
+      <h2>Registro de Piloto</h2>
+    </div>
+    <form id="formCrearPiloto">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="nombrePiloto">Nombre del Piloto</label>
+          <input type="text" class="form-control" id="nombrePiloto" name="nombrePiloto" placeholder="Ingrese el nombre del piloto" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edadPiloto">Edad</label>
+          <input type="number" class="form-control" id="edadPiloto" name="edadPiloto" placeholder="Ingrese la edad del piloto" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="paisPiloto">País</label>
+          <input type="text" class="form-control" id="paisPiloto" name="paisPiloto" placeholder="Ingrese el país del piloto" required>
+        </div>
+        <div class="form-group">
+          <label for="equipoPiloto" class="form-label">Equipo</label>
+          <select class="form-control" name="equipoPiloto" id="equipoPiloto" required>
+            <option value="">Seleccionar Equipo</option>
+            <!-- Aquí puedes añadir opciones dinámicamente con JavaScript -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="imagenPiloto">Imagen del Piloto</label>
+          <div class="image-upload-container" id="dropZonePiloto">
+            <i>📁</i>
+            <p class="image-upload-text">Arrastra una imagen aquí o haz clic para seleccionar</p>
+            <input type="file" class="file-input" id="imagenPiloto" name="imagenPiloto" accept="image/*" required>
+          </div>
+          <div class="preview-container">
+            <img class="preview-image" id="imagePreviewPiloto" alt="Preview">
+          </div>
+        </div>
+      </div>
+      <button id="btnRegistrarPiloto" type="submit" class="btn-submit">Registrar Piloto</button>
+      <div id="statusMessagePiloto" class="status-message"></div>
+    </form>
+  </div>
+</body>
+
+</html>

@@ -1,20 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Datos</title>
     <link rel="stylesheet" href="css/login.css">
-    <script src="js/login.js"></script>
     <title>Document</title>
 </head>
 <body>
+
     <div class="video-background">
         <video autoplay muted loop>
             <source src="video/fondo1.mp4" type="video/mp4">
         </video>
-        <form action="registrar">
-            
-        </form>
     </div>  
+
+    <div class="container">
+        <h1>Formulario de Registro</h1>
+        <form action="procesar.php" method="POST" enctype="multipart/form-data">
+
+            <!-- SECCIÓN PILOTO -->
+            <h2>Piloto</h2>
+            <label for="piloto_nombre">Nombre:</label>
+            <input type="text" id="piloto_nombre" name="piloto_nombre" required>
+
+            <label for="piloto_rol">Rol:</label>
+            <input type="text" name="piloto_rol" id="piloto_rol" required>
+
+            <label for="piloto_equipo">Equipo:</label>
+            <input type="text" name="piloto_equipo" id="piloto_equipo" required>
+
+            <label for="piloto_id">ID Piloto:</label>
+            <input type="number" name="piloto_id" id="piloto_id" required>
+
+            <!-- SECCIÓN EQUIPO -->
+            <h2>Equipo</h2>
+            <label for="equipo_nombre">Nombre del Equipo:</label>
+            <input type="text" name="equipo_nombre" id="equipo_nombre" required>
+
+            <label for="equipo_pais">País:</label>
+            <input type="text" name="equipo_pais" id="equipo_pais" required>
+
+            <label for="equipo_motor">Motor:</label>
+            <input type="text" name="equipo_motor" id="equipo_motor" required>
+
+            <label for="equipo_id1">ID Piloto 1:</label>
+            <input type="number" id="equipo_id1" name="equipo_id1" required>
+
+            <label for="equipo_id2">ID Piloto 2:</label>
+            <input type="number" id="equipo_id2" name="equipo_id2" required>
+
+            <label for="equipo_logo">Logo del Equipo:</label>
+            <input type="file" name="equipo_logo" id="equipo_logo" required>
+
+            <!-- SECCIÓN CIRCUITO -->
+            <h2>Registro de Circuito</h2>
+            <label for="circuito_nombre">Nombre del Circuito:</label>
+            <input type="text" id="circuito_nombre" name="circuito_nombre" value="Circuito de Yas Marina" required>
+
+            <label for="circuito_pais">País:</label>
+            <input type="text" id="circuito_pais" name="circuito_pais" value="Emiratos Árabes Unidos" required>
+
+            <label for="circuito_longitud">Longitud (km):</label>
+            <input type="number" id="circuito_longitud" name="circuito_longitud" step="0.01" value="5.28" required>
+
+            <label for="circuito_vueltas">Número de Vueltas:</label>
+            <input type="number" id="circuito_vueltas" name="circuito_vueltas" value="58" required>
+
+            <label for="circuito_descripcion">Descripción:</label>
+            <textarea id="circuito_descripcion" name="circuito_descripcion" rows="4" required>Ubicado en Abu Dhabi, es famoso por ser el circuito donde se definen muchos campeonatos, con un diseño moderno y una espectacular carrera nocturna.</textarea>
+
+            <h3>Récord de Vuelta</h3>
+            <label for="circuito_tiempo">Tiempo de Vuelta:</label>
+            <input type="text" id="circuito_tiempo" name="circuito_tiempo" value="1:39.283" required>
+
+            <label for="circuito_piloto_record">Piloto:</label>
+            <input type="text" id="circuito_piloto_record" name="circuito_piloto_record" value="Lewis Hamilton" required>
+
+            <label for="circuito_anio_record">Año:</label>
+            <input type="number" id="circuito_anio_record" name="circuito_anio_record" value="2019" required>
+
+            <h3>Ganadores por Temporada</h3>
+            <label for="ganador_2021">Temporada 2021 - Piloto ID:</label>
+            <input type="number" id="ganador_2021" name="ganador_2021" value="1" required>
+
+            <label for="ganador_2022">Temporada 2022 - Piloto ID:</label>
+            <input type="number" id="ganador_2022" name="ganador_2022" value="1" required>
+
+            <label for="ganador_2023">Temporada 2023 - Piloto ID:</label>
+            <input type="number" id="ganador_2023" name="ganador_2023" value="3" required>
+
+            <label for="circuito_imagen">URL de la Imagen del Circuito:</label>
+            <input type="url" id="circuito_imagen" name="circuito_imagen" value="https://upload.wikimedia.org/wikipedia/commons/0/0a/Yas_Marina_Circuit_2021_layout.svg" required>
+
+            <button type="submit">Registrar</button>
+        </form>
+    </div>
+
 </body>
 </html>
