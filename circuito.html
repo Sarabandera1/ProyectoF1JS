@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/circuito.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Circuitos</title>
+</head>
+<body class="background">
+    <div class="container">
+        <h2 class="section-title">🏁 Gestión de Circuitos</h2>
+
+        <!-- Formulario para agregar circuitos -->
+        <div class="form-card">
+            <h3>Agregar Circuito</h3>
+            <form id="circuitoForm">
+                <input type="text" id="nombreCircuito" placeholder="Nombre del circuito" required>
+                <input type="text" id="ubicacionCircuito" placeholder="Ubicación" required>
+                <input type="number" id="distanciaCircuito" placeholder="Distancia (km)" required>
+                <select id="condicionesCircuito">
+                    <option value="Seco">Seco</option>
+                    <option value="Mojado">Mojado</option>
+                    <option value="Mixto">Mixto</option>
+                </select>
+                <button type="submit">➕ Agregar Circuito</button>
+            </form>
+        </div>
+
+        <!-- Buscador -->
+        <input type="text" id="buscarCircuito" class="search-bar" placeholder="🔍 Buscar circuito por nombre o ubicación...">
+
+        <!-- Lista de circuitos -->
+        <div class="circuitos-grid" id="circuitosContainer">
+            <!-- Las tarjetas de circuitos se agregarán aquí dinámicamente -->
+        </div>
+    </div>
+
+    <script>
+        const circuitos = [];
+
+        const circuitoForm = document.getElementById("circuitoForm");
+        const circuitosContainer = document.getElementById("circuitosContainer");
+        const buscarCircuito = document.getElementById("buscarCircuito");
+
+        // Función para renderizar los circuitos en tarjetas
+        function mostrarCircuitos() {
+            circuitosContainer.innerHTML = "";
+            circuitos.forEach((circuito, index) => {
+                const card = document.createElement("div");
+                card.classList.add("circuito-card");
+
+                card.innerHTML = `
+                    <h3>${circuito.nombre}</h3>
+                    <p>📍 Ubicación: ${circuito.ubicacion}</p>
+                    <p>📏 Distancia: ${circuito.distancia} km</p>
+                    <p>🌦️ Condiciones: ${circuito.condiciones}</p>
+                    <div class="card-buttons">
+                        <button class="edit-btn" onclick="editarCircuito(${index})">✏️ Editar</button>
+                        <button class="delete-btn" onclick="eliminarCircuito(${index})">🗑️ Eliminar</button>
+                    </div>
+                `;
+                circuitosContainer.appendChild(card);
+            });
+        }
+
+        // Agregar un nuevo circuito
+        circuitoForm.addEventListener("submit", (e) => {
+            e.preventDefault();
+            const nombre = document.getElementById("nombreCircuito").value;
+            const ubicacion = document.getElementById("ubicacionCircuito").value;
+            const distancia = document.getElementById("distanciaCircuito").value;
+            const condiciones = document.getElementById("condicionesCircuito").value;
+
+            circuitos.push({ nombre, ubicacion, distancia, condiciones });
+            mostrarCircuitos();
+            circuitoForm.reset();
+        });
+
+        // Eliminar un circuito
+        function eliminarCircuito(index) {
+            circuitos.splice(index, 1);
+            mostrarCircuitos();
+        }
+
+        // Editar un circuito
+        function editarCircuito(index) {
+            const circuito = circuitos[index];
+            document.getElementById("nombreCircuito").value = circuito.nombre;
+            document.getElementById("ubicacionCircuito").value = circuito.ubicacion;
+            document.getElementById("distanciaCircuito").value = circuito.distancia;
+            document.getElementById("condicionesCircuito").value = circuito.condiciones;
+
+            circuitos.splice(index, 1);
+            mostrarCircuitos();
+        }
+
+        // Filtrar circuitos en tiempo real
+        buscarCircuito.addEventListener("input", () => {
+            const searchTerm = buscarCircuito.value.toLowerCase();
+            document.querySelectorAll(".circuito-card").forEach(card => {
+                const text = card.innerText.toLowerCase();
+                card.style.display = text.includes(searchTerm) ? "block" : "none";
+            });
+        });
+    </script>
+</body>
+</html>

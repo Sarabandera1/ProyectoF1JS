@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/pistas.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pistas</title>
+</head>
+
+<body class="background">
+  <div class="container">
+    <h2 class="section-title">Pistas de Carreras</h2>
+    <div class="track-grid" id="trackContainer">
+      <!-- Aquí se agregarán las tarjetas dinámicamente -->
+    </div>
+  </div>
+
+  <script>
+    // Datos de las pistas (puedes modificarlas o agregarlas dinámicamente)
+    const pistas = [
+      { nombre: "Monza", ubicacion: "Italia", imagen: "img/monza.jpeg" },
+      { nombre: "Silverstone", ubicacion: "Reino Unido", imagen: "img/Silverstone.jpeg" },
+      { nombre: "Suzuka", ubicacion: "Japón", imagen: "img/Suzuka.jpeg" },
+      { nombre: "Spa-Francorchamps", ubicacion: "Bélgica", imagen: "img/Spa-Francorchamps.jpeg" },
+      { nombre: "Interlagos", ubicacion: "Brasil", imagen: "img/Interlagos.jpeg" }
+    ];
+
+    // Contenedor de pistas
+    const trackContainer = document.getElementById("trackContainer");
+
+    // Crear tarjetas dinámicamente
+    pistas.forEach(pista => {
+      const card = document.createElement("div");
+      card.classList.add("track-card");
+
+      card.innerHTML = `
+        <img src="${pista.imagen}" alt="${pista.nombre}" class="track-image">
+        <h3>${pista.nombre}</h3>
+        <p>${pista.ubicacion}</p>
+      `;
+
+      trackContainer.appendChild(card);
+    });
+  </script>
+</body>
+
+</html>
