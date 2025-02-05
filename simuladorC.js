@@ -44,7 +44,7 @@ class QualifyingSimulator extends HTMLElement {
     }
 
     calculateLapTime(driver, weather) {
-        const baseTime = 80; // 1:20.000 como tiempo base
+        const baseTime = 80; 
         const weatherEffect = this.weather.getWeatherEffect();
         const driverSkill = driver.skill || 1;
         
