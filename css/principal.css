@@ -45,6 +45,7 @@ body {
     grid-column-gap: 2em;
     grid-row-gap: 2em;
     flex-flow: column;
+    margin-top: 10px;
     justify-content: flex-start;
     align-items: flex-start;
     display: flex;
