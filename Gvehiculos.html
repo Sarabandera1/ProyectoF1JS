@@ -1,56 +1,54 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comparador de Vehículos</title>
+    <title>F1 vehiculos</title>
     <link rel="stylesheet" href="Gvehiculos.css">
-    <script type="module" src="Gvehiculos.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Getión de vehículos</h1>
-        </header>
+    <vehicle-manager>
+        
+    </vehicle-manager>
 
-        <div class="main-content">
-            <!-- Menú de opciones -->
-            <nav>
-                <button class="tab-btn active" data-tab="info">Información</button>
-                <button class="tab-btn" data-tab="compare">Comparar</button>
-                <button class="tab-btn" data-tab="select">Circuitos</button>
-            </nav>
+    <template id="vehicle-manager-template">
+        <div class="dashboard">
+            <div class="controls">
+                <button class="btn-add">Añadir vehiculo</button>
+                <button class="btn-compare">Comparar vehiculo</button>
+            </div>
 
-            <!-- Pestaña: Información del vehículo -->
-            <section class="tab-content active" id="info">
-                <div class="vehicle-container">
-                    <div class="vehicle-selector">
-                        <label for="vehicle-select">Selecciona un vehículo:</label>
-                        <select id="vehicle-select">
-                            <option value="carro1">Tesla Model X</option>
-                            <option value="BMW">BMW M3</option>
-                            <option value="Audi">Audi R8</option>
-                        </select>
+            <div class="vehicles-grid"></div>
+
+            <dialog class="vehicle-form-dialog">
+                <form class="vehicle-form">
+                    <h2>Detalles del vehiculo</h2>
+                    <input type="text" name="name" placeholder="Vehicle Name" required>
+                    <input type="text" name="team" placeholder="Team" required>
+                    <input type="number" name="speed" placeholder="Speed (km/h)" required>
+                    <input type="number" name="acceleration" placeholder="Acceleration (0-100)" required>
+                    <input type="number" name="fuelConsumption" placeholder="Fuel Consumption" required>
+                    <input type="number" name="tyreDegradation" placeholder="Tyre Degradation" required>
+                    <select name="driver" required>
+                        <option value="">Selecionar auto</option>
+                    </select>
+                    <div class="form-actions">
+                        <button type="submit">Guardar</button>
+                        <button type="button" class="btn-cancel">Cancelar</button>
                     </div>
-               
-                    <div class="vehicle-display">
-                        <img id="vehicle-image" src="img/carro2.png" alt="Vehículo">
-                        <h2 id="vehicle-name">Tesla Model X</h2>
-                        <div class="division">
-                        <p><strong>Velocidad Máxima:</strong> <span id="speed">250 km/h</span></p>
-                        <p><strong>Aceleración:</strong> <span id="acceleration">3.2 seg (0-100 km/h)</span></p>
-                        </div>
-                        <div class="division">
-                        <p><strong>Consumo de Combustible:</strong> <span id="fuel">Eléctrico</span></p>
-                        <p><strong>Desgaste de Neumáticos:</strong> <span id="wear">Bajo</span></p>
-                        </div>
+                </form>
+            </dialog>
 
-                    </div> 
+            <dialog class="compare-dialog">
+                <div class="comparison-container">
+                    <h2>Vehicle Comparison</h2>
+                    <div class="comparison-grid"></div>
+                    <button class="btn-close-comparison">Cerrar</button>
                 </div>
-                
-            </section>
+            </dialog>
         </div>
+    </template>
 
-    </div>
-</body>
+            <script src="Gvehiculos.js" type="module"></script>
+    </body>
 </html>

@@ -1,0 +1,54 @@
+{
+  "vehicles": [
+      {
+          "id": 1,
+          "name": "C1 HARD",
+          "type": "HARD",
+          "team": "Team Alpha",
+          "driver": "John Doe",
+          "speed": 340,
+          "acceleration": 2.5,
+          "fuelConsumption": 45,
+          "tyreDegradation": 15
+      },
+      {
+          "id": 2,
+          "name": "C2 MEDIUM",
+          "type": "MEDIUM",
+          "team": "Team Beta",
+          "driver": "Jane Smith",
+          "speed": 350,
+          "acceleration": 2.3,
+          "fuelConsumption": 48,
+          "tyreDegradation": 25
+      },
+      {
+          "id": 3,
+          "name": "C3 SOFT",
+          "type": "SOFT",
+          "team": "Team Gamma",
+          "driver": "Bob Wilson",
+          "speed": 360,
+          "acceleration": 2.1,
+          "fuelConsumption": 52,
+          "tyreDegradation": 35
+      }
+  ],
+  "drivers": [
+      {
+          "id": 1,
+          "name": "John Doe",
+          "team": "Team Alpha"
+      },
+      {
+          "id": 2,
+          "name": "Jane Smith",
+          "team": "Team Beta"
+      },
+      {
+          "id": 3,
+          "name": "Bob Wilson",
+          "team": "Team Gamma"
+      }
+  ]
+}

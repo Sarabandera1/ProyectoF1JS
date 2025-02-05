@@ -1,50 +1,127 @@
-document.addEventListener("DOMContentLoaded", function () {
-    // Cambio de pestañas
-    const tabs = document.querySelectorAll(".tab-btn");
-    const contents = document.querySelectorAll(".tab-content");
+class VehicleManager extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' });
+        const template = document.getElementById('vehicle-manager-template');
+        this.shadowRoot.appendChild(template.content.cloneNode(true));
+        
+        this.vehicles = [];
+        this.apiUrl = 'http://localhost:3000';
+    }
 
-    tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-            tabs.forEach(t => t.classList.remove("active"));
-            contents.forEach(c => c.classList.remove("active"));
+    connectedCallback() {
+        this.setupEventListeners();
+        this.loadVehicles();
+    }
 
-            tab.classList.add("active");
-            document.getElementById(tab.dataset.tab).classList.add("active");
+    async loadVehicles() {
+        try {
+            const response = await fetch(`${this.apiUrl}/vehicles`);
+            this.vehicles = await response.json();
+            this.renderVehicles();
+        } catch (error) {
+            console.error('Error loading vehicles:', error);
+        }
+    }
 
-            gsap.fromTo("#" + tab.dataset.tab, { opacity: 0 }, { opacity: 1, duration: 0.5 });
+    setupEventListeners() {
+        const addBtn = this.shadowRoot.querySelector('.btn-add');
+        const compareBtn = this.shadowRoot.querySelector('.btn-compare');
+        const form = this.shadowRoot.querySelector('.vehicle-form');
+        const formDialog = this.shadowRoot.querySelector('.vehicle-form-dialog');
+        const compareDialog = this.shadowRoot.querySelector('.compare-dialog');
+
+        addBtn.addEventListener('click', () => formDialog.showModal());
+        compareBtn.addEventListener('click', () => this.showComparison());
+        form.addEventListener('submit', (e) => this.handleFormSubmit(e));
+    }
+
+    async handleFormSubmit(event) {
+        event.preventDefault();
+        const formData = new FormData(event.target);
+        const vehicleData = Object.fromEntries(formData.entries());
+
+        try {
+            const response = await fetch(`${this.apiUrl}/vehicles`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(vehicleData)
+            });
+
+            if (response.ok) {
+                this.loadVehicles();
+                event.target.reset();
+                this.shadowRoot.querySelector('.vehicle-form-dialog').close();
+            }
+        } catch (error) {
+            console.error('Error saving vehicle:', error);
+        }
+    }
+
+    renderVehicles() {
+        const grid = this.shadowRoot.querySelector('.vehicles-grid');
+        grid.innerHTML = this.vehicles.map(vehicle => this.createVehicleCard(vehicle)).join('');
+        
+        
+        grid.querySelectorAll('.btn-edit').forEach(btn => {
+            btn.addEventListener('click', (e) => this.editVehicle(e.target.dataset.id));
         });
-    });
+        
+        grid.querySelectorAll('.btn-delete').forEach(btn => {
+            btn.addEventListener('click', (e) => this.deleteVehicle(e.target.dataset.id));
+        });
+    }
 
-    // Información de vehículos con imágenes
-    const vehicles = {
-        tesla: { name: "Tesla Model X", speed: "250 km/h", acceleration: "3.2 seg (0-100 km/h)", fuel: "Eléctrico", wear: "Bajo", img: "./img/carro1.png" },
-        bmw: { name: "BMW M3", speed: "290 km/h", acceleration: "3.8 seg (0-100 km/h)", fuel: "12 km/L", wear: "Medio", img: "./img/carro2.png" },
-        audi: { name: "Audi R8", speed: "330 km/h", acceleration: "3.1 seg (0-100 km/h)", fuel: "8 km/L", wear: "Alto", img: "./img/carro3.png" },
-        lambor: { name: "lambor Model X", speed: "250 km/h", acceleration: "3.2 seg (0-100 km/h)", fuel: "", wear: "Bajo", img: "./img/carro4.png" }
-    };
+    createVehicleCard(vehicle) {
+        return `
+            <div class="vehicle-card ${vehicle.type.toLowerCase()}">
+                <h3>${vehicle.name}</h3>
+                <p>Team: ${vehicle.team}</p>
+                <p>Driver: ${vehicle.driver}</p>
+                <div class="vehicle-stats">
+                    <div class="stat-item">Speed: ${vehicle.speed} km/h</div>
+                    <div class="stat-item">Acceleration: ${vehicle.acceleration}s</div>
+                    <div class="stat-item">Fuel: ${vehicle.fuelConsumption}L/100km</div>
+                    <div class="stat-item">Tyre Wear: ${vehicle.tyreDegradation}%</div>
+                </div>
+                <div class="card-actions">
+                    <button class="btn-edit" data-id="${vehicle.id}">Edit</button>
+                    <button class="btn-delete" data-id="${vehicle.id}">Delete</button>
+                </div>
+            </div>
+        `;
+    }
 
-    const vehicleSelect = document.getElementById("vehicle-select");
-    const vehicleImage = document.getElementById("vehicle-image");
+    async deleteVehicle(id) {
+        if (confirm('Are you sure you want to delete this vehicle?')) {
+            try {
+                await fetch(`${this.apiUrl}/vehicles/${id}`, { method: 'DELETE' });
+                this.loadVehicles();
+            } catch (error) {
+                console.error('Error deleting vehicle:', error);
+            }
+        }
+    }
 
-    vehicleSelect.addEventListener("change", function () {
-        let v = vehicles[this.value];
+    showComparison() {
+        const dialog = this.shadowRoot.querySelector('.compare-dialog');
+        const container = dialog.querySelector('.comparison-grid');
+        
+    
+        container.innerHTML = this.vehicles.map(vehicle => `
+            <div class="vehicle-card ${vehicle.type.toLowerCase()}">
+                <h3>${vehicle.name}</h3>
+                <div class="vehicle-stats">
+                    <div class="stat-item">Speed: ${vehicle.speed} km/h</div>
+                    <div class="stat-item">Acceleration: ${vehicle.acceleration}s</div>
+                    <div class="stat-item">Fuel: ${vehicle.fuelConsumption}L/100km</div>
+                    <div class="stat-item">Tyre Wear: ${vehicle.tyreDegradation}%</div>
+                </div>
+            </div>
+        `).join('');
 
-        document.getElementById("vehicle-name").textContent = v.name;
-        document.getElementById("speed").textContent = v.speed;
-        document.getElementById("acceleration").textContent = v.acceleration;
-        document.getElementById("fuel").textContent = v.fuel;
-        document.getElementById("wear").textContent = v.wear;
+        dialog.showModal();
+    }
+}
 
-        // Animación para cambiar la imagen
-        gsap.to(vehicleImage, { opacity: 0, duration: 0.3, onComplete: () => {
-            vehicleImage.src = v.img;
-            gsap.to(vehicleImage, { opacity: 1, duration: 0.3 });
-        }});
-    });
-
-    // Selección para simulación
-    // document.getElementById("simulate-btn").addEventListener("click", function () {
-    //     let selectedVehicle = vehicleSelect.value;
-    //     document.getElementById("selected-vehicle").textContent = "Vehículo seleccionado: " + vehicles[selectedVehicle].name;
-    // });
-});
+customElements.define('vehicle-manager', VehicleManager);
