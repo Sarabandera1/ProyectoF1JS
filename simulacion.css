@@ -1,0 +1,85 @@
+:root {
+    --bg-dark: #1a1a1a;
+    --text-primary: #ffffff;
+    --accent-yellow: #ffba08;
+    --accent-red: #ff0000;
+    --grid-gap: 1rem;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-dark);
+    color: var(--text-primary);
+    font-family: 'Arial', sans-serif;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 60% 40%;
+    height: 100vh;
+    gap: var(--grid-gap);
+    padding: var(--grid-gap);
+}
+
+#trackCanvas {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    background: #000;
+    border-radius: 8px;
+}
+
+.telemetry-dashboard {
+    grid-column: 2;
+    grid-row: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.classification-board {
+    grid-column: 2;
+    grid-row: 2;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+}
+
+.telemetry {
+    display: grid;
+    gap: 1rem;
+}
+
+.position-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.position {
+    font-size: 4rem;
+    margin: 0;
+}
+
+.driver-name {
+    color: var(--accent-yellow);
+    margin: 0;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.speed-display {
+    font-size: 2rem;
+    text-align: center;
+}
+
+.car-stats {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}

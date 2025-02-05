@@ -3,30 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Qualifying Simulation</title>
     <link rel="stylesheet" href="simulacion.css">
-    <script src="simulacion.js"></script>
-
-    <title>Modelo Spline</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-        canvas {
-            width: 100vw;
-            height: 100vh;
-            display: block;
-        }
-    </style>
 </head>
 <body>
-    <canvas id="canvas3d"></canvas>
+    <qualifying-simulator>
+        <div class="layout">
+            <canvas id="trackCanvas"></canvas>
+            <div class="telemetry-dashboard"></div>
+            <div class="classification-board"></div>
+        </div>
+    </qualifying-simulator>
 
-    <script type="module">
-        import { Application } from '@splinetool/runtime';
+    <template id="telemetry-template">
+        <div class="telemetry">
+            <div class="position-info">
+                <h1 class="position"></h1>
+                <h2 class="driver-name"></h2>
+                <div class="timing"></div>
+            </div>
+            
+            <div class="car-visual">
+                <canvas class="car-canvas"></canvas>
+            </div>
 
-        const canvas = document.getElementById('canvas3d');
-        const app =('')
-    </script>
+            <div class="stats-grid">
+                <div class="lap-times">
+                    <div class="current-lap"></div>
+                    <div class="best-lap"></div>
+                </div>
+                
+                <div class="speed-display">
+                    <h3 class="speed"></h3>
+                    <span>km/h</span>
+                </div>
+
+                <div class="weather-info">
+                    <div class="temperature"></div>
+                    <div class="conditions"></div>
+                </div>
+            </div>
+
+            <div class="car-stats">
+                <div class="tyre-info">
+                    <div class="pressure"></div>
+                    <div class="wear"></div>
+                </div>
+                <div class="engine-stats">
+                    <canvas class="engine-gauge"></canvas>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <script src="weather-system.js" type="module"></script>
+    <script src="carro.js" type="module"></script>
+    <script src="telerimetria.js" type="module"></script>
+    <script src="simuladorC.js" type="module"></script>
 </body>
 </html>
