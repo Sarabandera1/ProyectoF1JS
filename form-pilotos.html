@@ -31,7 +31,7 @@
           <label for="equipoPiloto" class="form-label">Equipo</label>
           <select class="form-control" name="equipoPiloto" id="equipoPiloto" required>
             <option value="">Seleccionar Equipo</option>
-            <!-- Aquí puedes añadir opciones dinámicamente con JavaScript -->
+            <!-- Opciones de equipos cargadas dinámicamente -->
           </select>
         </div>
         <div class="form-group">
@@ -50,54 +50,73 @@
       <div id="statusMessagePiloto" class="status-message"></div>
     </form>
   </div>
-          <script>
-            const form = document.getElementById('formCrearPiloto');
-            const statusMessage = document.getElementById('statusMessagePiloto');
-          
-            form.addEventListener('submit', async (event) => {
-              event.preventDefault();
-          
-              const formData = new FormData(form); // Crear un objeto FormData con los datos del formulario
-          
-              try {
-                const response = await fetch('http://localhost:3000/api/pilotos', {
-                  method: 'POST',
-                  body: formData,
-                });
-          
-                if (response.ok) {
-                  const data = await response.json();
-                  statusMessage.textContent = data.message;
-                  statusMessage.style.color = 'green';
-                  form.reset();
-                  document.getElementById('imagePreviewPiloto').src = ''; // Limpiar la vista previa
-                } else {
-                  const errorData = await response.json();
-                  statusMessage.textContent = errorData.message || 'Error al registrar piloto';
-                  statusMessage.style.color = 'red';
-                }
-              } catch (error) {
-                console.error('Error:', error);
-                statusMessage.textContent = 'Error al conectar con el servidor';
-                statusMessage.style.color = 'red';
-              }
-            });
-          
-            // Previsualización de la imagen cargada
-            const fileInput = document.getElementById('imagenPiloto');
-            const previewImage = document.getElementById('imagePreviewPiloto');
-          
-            fileInput.addEventListener('change', (event) => {
-              const file = event.target.files[0];
-              if (file) {
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                  previewImage.src = e.target.result; // Mostrar vista previa de la imagen
-                };
-                reader.readAsDataURL(file);
-              }
-            });
-          </script>
+  
+  <script>
+    const form = document.getElementById('formCrearPiloto');
+    const statusMessage = document.getElementById('statusMessagePiloto');
+    const equipoSelect = document.getElementById('equipoPiloto');
+    
+    // Lista de equipos, esta puede ser dinámica desde una API si se prefiere
+    const equipos = [
+      { id: 1, nombre: 'Red Bull Racing' },
+      { id: 2, nombre: 'Mercedes' },
+      { id: 3, nombre: 'Ferrari' },
+      { id: 4, nombre: 'McLaren' }
+    ];
+
+    // Cargar los equipos en el formulario
+    equipos.forEach(equipo => {
+      const option = document.createElement('option');
+      option.value = equipo.id;
+      option.textContent = equipo.nombre;
+      equipoSelect.appendChild(option);
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      const formData = new FormData(form); // Crear un objeto FormData con los datos del formulario
+
+      try {
+        const response = await fetch('http://localhost:3000/pilotos', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          statusMessage.textContent = data.message;
+          statusMessage.style.color = 'green';
+          form.reset();
+          document.getElementById('imagePreviewPiloto').src = ''; // Limpiar la vista previa
+        } else {
+          const errorData = await response.json();
+          statusMessage.textContent = errorData.message || 'Error al registrar piloto';
+          statusMessage.style.color = 'red';
+        }
+      } catch (error) {
+        statusMessage.textContent = 'Error al conectar con el servidor';
+        statusMessage.style.color = 'red';
+      }
+    });
+
+    // Previsualización de la imagen cargada
+    const fileInput = document.getElementById('imagenPiloto');
+    const previewImage = document.getElementById('imagePreviewPiloto');
+
+    fileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          previewImage.src = e.target.result; // Mostrar vista previa de la imagen
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+    
+  </script>
+  <script src="js/piloto.js"></script>
 </body>
 
 </html>

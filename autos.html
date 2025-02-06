@@ -66,12 +66,24 @@
             </button>
         </div>
 
-        <!-- New button to navigate to the form page -->
+        <!-- Button to navigate to the form page -->
         <div class="form-navigation">
             <a href="form-carros.html" class="form-btn">
                 <span class="btn-icon">📝</span>
                 Ir al Formulario
             </a>
+        </div>
+
+        <!-- CRUD Section -->
+        <div class="crud-panel">
+            <h3>Gestión de vehículos</h3>
+            <ul id="car-list">
+                <!-- Lista de vehículos generada dinámicamente -->
+            </ul>
+            <form id="add-pilot-form">
+                <input type="text" id="pilot-name" placeholder="Nombre del piloto" required>
+                <button type="submit">Asignar piloto</button>
+            </form>
         </div>
     </div>
     
@@ -83,5 +95,6 @@
         app.load('https://prod.spline.design/Ho3KHrFGsRy2Wy8F/scene.splinecode');
     </script>
     <script src="js/simulacion.js"></script>
+    <script src="js/crud.js"></script>
 </body>
 </html>

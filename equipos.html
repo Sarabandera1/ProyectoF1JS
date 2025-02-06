@@ -60,7 +60,81 @@
     </form>
   </div>
     </div>
+    <div id="contenedorEquipos" class="contenedor-equipos">
+      <!-- Las tarjetas de los equipos se generarán dinámicamente aquí -->
+    </div>    
   </div>
+  <script>
+    // Obtener los elementos del formulario
+    const form = document.getElementById('formCrearEquipo');
+    const nombreEquipoInput = document.getElementById('nombreEquipo');
+    const paisEquipoInput = document.getElementById('paisEquipo');
+    const motorEquipoInput = document.getElementById('motorEquipo');
+    const piloto1Select = document.querySelector('select[name="nombrePiloto1"]');
+    const piloto2Select = document.querySelector('select[name="nombrePiloto2"]');
+    const imagenEquipoInput = document.getElementById('imagenEquipo');
+    const btnRegistrar = document.getElementById('btnRegistrar');
+    const statusMessage = document.getElementById('statusMessage');
+    
+    // Función para almacenar los datos del equipo en el localStorage
+    function guardarEquipo(equipo) {
+      let equipos = JSON.parse(localStorage.getItem('equipos')) || [];
+      equipos.push(equipo);
+      localStorage.setItem('equipos', JSON.stringify(equipos));
+    }
+    
+    // Función para cargar los datos y mostrar las tarjetas
+    function mostrarEquipos() {
+      const equipos = JSON.parse(localStorage.getItem('equipos')) || [];
+      const contenedorEquipos = document.getElementById('contenedorEquipos');
+      
+      contenedorEquipos.innerHTML = '';
+      
+      equipos.forEach((equipo) => {
+        const tarjeta = document.createElement('div');
+        tarjeta.classList.add('equipo-card');
+        tarjeta.innerHTML = `
+          <h3>${equipo.nombreEquipo}</h3>
+          <p><strong>País:</strong> ${equipo.paisEquipo}</p>
+          <p><strong>Motor:</strong> ${equipo.motorEquipo}</p>
+          <p><strong>Piloto Principal:</strong> ${equipo.piloto1}</p>
+          <p><strong>Piloto Secundario:</strong> ${equipo.piloto2}</p>
+          <img src="${equipo.imagenEquipo}" alt="${equipo.nombreEquipo}" class="equipo-image"/>
+        `;
+        contenedorEquipos.appendChild(tarjeta);
+      });
+    }
+    
+    // Función que maneja la acción de registro del equipo
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();  // Evita que el formulario se envíe normalmente
+    
+      const equipo = {
+        nombreEquipo: nombreEquipoInput.value,
+        paisEquipo: paisEquipoInput.value,
+        motorEquipo: motorEquipoInput.value,
+        piloto1: piloto1Select.value,
+        piloto2: piloto2Select.value,
+        imagenEquipo: URL.createObjectURL(imagenEquipoInput.files[0]),
+      };
+    
+      // Guardar el equipo en el localStorage
+      guardarEquipo(equipo);
+    
+      // Mostrar un mensaje de éxito
+      statusMessage.textContent = 'Equipo registrado con éxito';
+    
+      // Limpiar los campos del formulario
+      form.reset();
+    
+      // Mostrar las tarjetas con los equipos registrados
+      mostrarEquipos();
+    });
+    
+    // Mostrar los equipos registrados al cargar la página
+    window.onload = mostrarEquipos;
+    </script>
+    
 </body>
 
 </html>

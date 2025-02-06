@@ -167,7 +167,11 @@ class CarrosApp extends HTMLElement {
       const aceleracion = this.shadowRoot.getElementById("aceleracion").value
       const consumo = this.shadowRoot.getElementById("consumo").value
       const desgaste = this.shadowRoot.getElementById("desgaste").value
-      await agregarCarro({ marca, modelo, anio, imagen, velocidad, aceleracion, consumo, desgaste })
+      const newCarro = await agregarCarro({ marca, modelo, anio, imagen, velocidad, aceleracion, consumo, desgaste })
+      if (newCarro) {
+        // Redirect to the page with car cards after successful submission
+        window.location.href = "carros.html"
+      }
       form.reset()
     })
     mostrarCarros() // This will load existing cars when the app initializes
@@ -184,24 +188,10 @@ async function agregarCarro(carro) {
       body: JSON.stringify(carro),
     })
     const newCarro = await response.json()
-
-    // Create and display the new card
-    const container = document.querySelector("carros-app").shadowRoot.getElementById("carrosContainer")
-    const card = document.createElement("carro-card")
-    card.setAttribute("id", newCarro.id)
-    card.setAttribute("marca", newCarro.marca)
-    card.setAttribute("modelo", newCarro.modelo)
-    card.setAttribute("anio", newCarro.anio)
-    card.setAttribute("imagen", newCarro.imagen)
-    card.setAttribute("velocidad", newCarro.velocidad)
-    card.setAttribute("aceleracion", newCarro.aceleracion)
-    card.setAttribute("consumo", newCarro.consumo)
-    card.setAttribute("desgaste", newCarro.desgaste)
-    card.setAttribute("piloto", newCarro.piloto || "Sin asignar")
-
-    container.appendChild(card)
+    return newCarro
   } catch (error) {
     console.error("Error al agregar carro:", error)
+    return null
   }
 }
 

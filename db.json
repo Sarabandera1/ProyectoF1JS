@@ -1,7 +1,29 @@
 {
-  "carros": [],
+  "carros": [
+    {
+      "id": "1f09",
+      "marca": "mercedes",
+      "modelo": "bmw-z4",
+      "anio": "2024",
+      "imagen": "https://tse2.mm.bing.net/th?id=OIP.khGDl73XwsZHz-SeKmeORgHaEK&pid=Api&P=0&w=300&h=300",
+      "velocidad": "369",
+      "aceleracion": "6",
+      "consumo": "2",
+      "desgaste": "48"
+    },
+    {
+      "id": "b8bb",
+      "marca": "mercedes",
+      "modelo": "bmw-z4",
+      "anio": "2024",
+      "imagen": "https://tse2.mm.bing.net/th?id=OIP.khGDl73XwsZHz-SeKmeORgHaEK&pid=Api&P=0&w=300&h=300",
+      "velocidad": "369",
+      "aceleracion": "6",
+      "consumo": "2",
+      "desgaste": "48"
+    }
+  ],
   "usuarios": [],
-  "pilotos": [],
   "cars": [
     {
       "id": 1,
@@ -44,5 +66,7 @@
       "name": "Leclerc",
       "skill": 92
     }
-  ]
+  ],
+  "equipos": [],
+  "pilotos": []
 }

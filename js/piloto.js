@@ -1,68 +1,21 @@
 const express = require('express');
-const fs = require('fs');
-const cors = require('cors');
-const multer = require('multer'); // Para manejar las imágenes
-const path = require('path');
-
 const app = express();
-const PORT = 3000;
+const cors = require('cors');
 
-// Middleware
-app.use(express.json());
-app.use(cors());
-app.use(express.urlencoded({ extended: true }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // Carpeta para guardar imágenes
+app.use(cors());  // Habilitar CORS para permitir solicitudes desde el frontend
 
-// Configuración de multer para manejar la subida de imágenes
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads'); // Carpeta donde se guardan las imágenes
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  },
-});
-const upload = multer({ storage });
+app.use(express.json());  // Middleware para parsear el cuerpo de las solicitudes como JSON
+app.use(express.urlencoded({ extended: true }));  // Middleware para parsear datos de formularios
 
-// Ruta para registrar pilotos
-app.post('/api/pilotos', upload.single('imagenPiloto'), (req, res) => {
-  const { nombrePiloto, edadPiloto, paisPiloto, equipoPiloto } = req.body;
-  const imagenPath = req.file ? `/uploads/${req.file.filename}` : null;
-
-  // Crear el nuevo piloto
-  const nuevoPiloto = {
-    id: Date.now(),
-    nombre: nombrePiloto,
-    edad: parseInt(edadPiloto),
-    pais: paisPiloto,
-    equipo: equipoPiloto,
-    imagen: imagenPath,
-  };
-
-  // Leer y actualizar el archivo JSON
-  const filePath = './pilotos.json';
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    let pilotos = [];
-    if (!err && data) {
-      pilotos = JSON.parse(data); // Leer pilotos existentes
-    }
-
-    pilotos.push(nuevoPiloto); // Agregar el nuevo piloto
-
-    // Guardar en el archivo JSON
-    fs.writeFile(filePath, JSON.stringify(pilotos, null, 2), (writeErr) => {
-      if (writeErr) {
-        console.error('Error al guardar el archivo JSON:', writeErr);
-        return res.status(500).send({ message: 'Error al guardar el piloto' });
-      }
-
-      res.status(201).send({ message: 'Piloto registrado exitosamente', piloto: nuevoPiloto });
-    });
-  });
+// Ruta para registrar un piloto
+app.post('/api/pilotos', (req, res) => {
+  // Lógica para manejar los datos del piloto
+  console.log(req.body);  // Ver los datos recibidos en la solicitud
+  res.json({ message: 'Piloto registrado correctamente' });  // Respuesta de éxito
 });
 
-// Iniciar el servidor
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+app.listen(3000, () => {
+  console.log('Servidor corriendo en http://localhost:3000');
 });
+const cors = require('cors');
+app.use(cors()); 

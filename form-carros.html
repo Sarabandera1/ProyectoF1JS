@@ -1,12 +1,228 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script type="module" src="js/form-carros.js"></script>
-    <title>Document</title>
+    <title>Gestión de Carros F1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .form-container, .cards-container {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
-    <carros-app></carros-app>
+    <div class="container">
+        <h1>Gestión de Carros F1</h1>
+        <div class="form-container">
+            <carros-form></carros-form>
+        </div>
+        <div class="cards-container">
+            <carros-cards></carros-cards>
+        </div>
+    </div>
+    <script type="module">
+        const API_URL = 'http://localhost:3000/carros';
+
+        class CarrosForm extends HTMLElement {
+            constructor() {
+                super();
+                this.attachShadow({ mode: 'open' });
+            }
+
+            connectedCallback() {
+                this.render();
+                this.addEventListeners();
+            }
+
+            render() {
+                this.shadowRoot.innerHTML = `
+                    <style>
+                        form {
+                            display: grid;
+                            gap: 10px;
+                            max-width: 400px;
+                            margin: 0 auto;
+                        }
+                        input, button {
+                            width: 100%;
+                            padding: 8px;
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                        }
+                        button {
+                            background-color: #4CAF50;
+                            color: white;
+                            border: none;
+                            cursor: pointer;
+                            transition: background-color 0.3s;
+                        }
+                        button:hover {
+                            background-color: #45a049;
+                        }
+                    </style>
+                    <form id="carroForm">
+                        <input type="text" name="marca" placeholder="Marca" required>
+                        <input type="text" name="modelo" placeholder="Modelo" required>
+                        <input type="number" name="anio" placeholder="Año" required>
+                        <input type="url" name="imagen" placeholder="URL de la Imagen" required>
+                        <input type="number" name="velocidad" placeholder="Velocidad (km/h)" required>
+                        <input type="number" name="aceleracion" placeholder="Aceleración (s)" required>
+                        <input type="number" name="consumo" placeholder="Consumo (L/100km)" required>
+                        <input type="number" name="desgaste" placeholder="Desgaste (%)" required>
+                        <button type="submit">Agregar Carro</button>
+                    </form>
+                `;
+            }
+
+            addEventListeners() {
+                const form = this.shadowRoot.getElementById('carroForm');
+                form.addEventListener('submit', this.handleSubmit.bind(this));
+            }
+
+            async handleSubmit(event) {
+                event.preventDefault();
+                const formData = new FormData(event.target);
+                const carroData = Object.fromEntries(formData.entries());
+
+                try {
+                    const response = await fetch(API_URL, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(carroData),
+                    });
+
+                    if (response.ok) {
+                        event.target.reset();
+                        document.querySelector('carros-cards').fetchCarros();
+                    } else {
+                        console.error('Error al agregar el carro');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            }
+        }
+
+        class CarroCard extends HTMLElement {
+            constructor() {
+                super();
+                this.attachShadow({ mode: 'open' });
+            }
+
+            connectedCallback() {
+                const carro = JSON.parse(this.getAttribute('data'));
+                this.render(carro);
+            }
+
+            render(carro) {
+                this.shadowRoot.innerHTML = `
+                    <style>
+                        .carro-card {
+                            background-color: #ffffff;
+                            padding: 15px;
+                            border-radius: 8px;
+                            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                            text-align: center;
+                            margin-bottom: 10px;
+                        }
+                        .carro-card img {
+                            width: 100%;
+                            height: 200px;
+                            object-fit: cover;
+                            border-radius: 8px;
+                            margin-bottom: 10px;
+                        }
+                        .carro-card h3 {
+                            margin: 10px 0;
+                            color: #555;
+                        }
+                        .carro-card p {
+                            margin: 5px 0;
+                            color: #777;
+                            font-size: 14px;
+                        }
+                    </style>
+                    <div class="carro-card">
+                        <img src="${carro.imagen}" alt="${carro.marca} ${carro.modelo}" onerror="this.src='/placeholder.svg?height=200&width=300';">
+                        <h3>${carro.marca} ${carro.modelo} (${carro.anio})</h3>
+                        <p>Velocidad: ${carro.velocidad} km/h</p>
+                        <p>Aceleración: ${carro.aceleracion} s</p>
+                        <p>Consumo: ${carro.consumo} L/100km</p>
+                        <p>Desgaste: ${carro.desgaste} %</p>
+                        <p>Piloto: ${carro.piloto || 'Sin asignar'}</p>
+                    </div>
+                `;
+            }
+        }
+
+        class CarrosCards extends HTMLElement {
+            constructor() {
+                super();
+                this.attachShadow({ mode: 'open' });
+            }
+
+            connectedCallback() {
+                this.render();
+                this.fetchCarros();
+            }
+
+            render() {
+                this.shadowRoot.innerHTML = `
+                    <style>
+                        .carros-grid {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                            gap: 20px;
+                        }
+                    </style>
+                    <div class="carros-grid" id="carrosGrid"></div>
+                `;
+            }
+
+            async fetchCarros() {
+                try {
+                    const response = await fetch(API_URL);
+                    const carros = await response.json();
+                    this.displayCarros(carros);
+                } catch (error) {
+                    console.error('Error al obtener los carros:', error);
+                }
+            }
+
+            displayCarros(carros) {
+                const grid = this.shadowRoot.getElementById('carrosGrid');
+                grid.innerHTML = ''; // Clear existing cards
+                carros.forEach(carro => {
+                    const carroCard = document.createElement('carro-card');
+                    carroCard.setAttribute('data', JSON.stringify(carro));
+                    grid.appendChild(carroCard);
+                });
+            }
+        }
+
+        customElements.define('carros-form', CarrosForm);
+        customElements.define('carro-card', CarroCard);
+        customElements.define('carros-cards', CarrosCards);
+    </script>
 </body>
 </html>
