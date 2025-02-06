@@ -185,3 +185,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     selectBtn.click();
 });
+cars = [
+    {
+        name: 'Red Bull RB19',
+        image: './img/fcarroNaranja.jpg',
+        
+    },
+    {
+        name: 'Ferrari SF-23',
+        image: './img/fcarroRojo.jpg',
+        
+    },
+    
+];
