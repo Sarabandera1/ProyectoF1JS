@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formula 1</title>
+    <link rel="stylesheet" href="css/inicio.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/material-icons@1.13.12/iconfont/material-icons.min.css">
+</head>
+<body > 
+    <nav class="navbar">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+            <video autoplay loop muted playsinline  class="background-video">
+                <source src="img/video2.mp4" type="video/mp4">
+            </video>
+                
+            <input type="checkbox" name="" id="click">
+            <label for="click" class="menu-btn">
+                    <i class="material-icons">menu</i>
+            </label>
+            <section>
+            <div class="container">
+            <div class="row full-screen align-items-center">
+
+            <div class="right">
+            <div class="form">
+            <div class="text-center">
+                    <h6><span>Log In</span> <span>Sign Up</span></h6>
+                    <input type="checkbox" class="checkbox" id="reg-log">
+            <label for="reg-log"></label>
+            <div class="card-3d-wrap">
+            <div class="card-3d-wrapper">
+            <div class="card-front">
+            <div class="center-wrap">
+                    <h4 class="heading">Log In</h4>
+            <div class="form-group">
+                    <input type="email" class="form-style" placeholder="Your Email" autocomplete="off">
+                    <i class="input-icon material-icons">alternate_email</i>
+            </div>
+            <div class="form-group">
+                    <input type="password" class="form-style" placeholder="Your Password" autocomplete="off">
+                    <i class="input-icon material-icons">lock</i>
+            </div>
+
+                    <a href="principal.html" class="btn">Submit</a>
+                    <p class="text-center"><a href="login.html" class="link">Forgot your password?</a></p>
+            </div>
+            </div>
+                <div class="card-back">
+                <div class="center-wrap">
+                    <h4 class="heading">Sign Up</h4>
+                <div class="form-group">
+                    <input type="text" class="form-style" placeholder="Your Name" autocomplete="off">
+                    <i class="input-icon material-icons">perm_identity</i>
+                </div>
+
+                <div class="form-group">
+                    <input type="email" class="form-style" placeholder="Your Email" autocomplete="off">
+                    <i class="input-icon material-icons">alternate_email</i>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-style" placeholder="Your Password" autocomplete="off">
+                    <i class="input-icon material-icons">lock</i>
+                </div>
+                <a href="inicio.html" id="signUpButton" class="btn">Submit</a>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                </div>    
+                </div>
+                </div>
+                </section>
+                </div>
+                </div>
+                </nav>
+                <script>
+                  document.getElementById('signUpButton').addEventListener('click', function () {
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const password = document.getElementById('password').value;
+                
+                    const userData = { name, email, password };
+                
+                    // Enviar los datos al backend usando fetch
+                    fetch('http://localhost:3000/usuarios', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(userData),
+                    })
+                        .then((response) => {
+                            if (response.ok) {
+                                return response.json();
+                            }
+                            throw new Error('Error en el registro');
+                        })
+                        .then((data) => {
+                            alert(data.message);
+                            window.location.href = 'inicio.html'; // Redirigir a la página de inicio
+                        })
+                        .catch((error) => console.error('Error:', error));
+                });                
+              </script>
+              <script src="js/inicio.js"></script>
+</body>
+</html>

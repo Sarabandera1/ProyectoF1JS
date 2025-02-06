@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="css/piloto.css"><title>Piloto</title>
+</head>
+<body>
+    <div class="container">
+        <div class="card" onclick="showInfo('JANEL', 'Leader of the team, known for aggressive driving.')">
+          <img src="img/max.jpeg" alt="JANEL">
+          <h2>JANEL</h2>
+          <p class="role">Leader</p>
+        </div>
+        
+        <div class="card" onclick="showInfo('HAMEL', 'A strategic second driver with great overtaking skills.')">
+          <img src="img/lando2.jpeg" alt="HAMEL">
+          <h2>HAMEL</h2>
+          <p class="role">Second</p>
+        </div>
+        
+        <div class="card" onclick="showInfo('DEVEL', 'Young talent with high potential and fast reflexes.')">
+          <img src="img/charles.jpeg" alt="DEVEL">
+          <h2>DEVEL</h2>
+          <p class="role">Second</p>
+        </div>
+    </div>
+
+    <a href="form-pilotos.html" class="register-btn">Registrar Piloto</a>
+
+    <div class="modal" id="infoModal">
+      <div class="modal-content">
+        <h2 id="driverName"></h2>
+        <p id="driverInfo"></p>
+        <button class="close-btn" onclick="closeModal()">Cerrar</button>
+      </div>
+    </div>
+</body>
+</html>
