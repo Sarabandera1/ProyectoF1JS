@@ -1,85 +1,173 @@
 :root {
-    --bg-dark: #1a1a1a;
+    --primary-color: #00a8ff;
+    --secondary-color: #192a56;
+    --background-dark: #0c1220;
+    --panel-bg: rgba(25, 42, 86, 0.7);
     --text-primary: #ffffff;
-    --accent-yellow: #ffba08;
-    --accent-red: #ff0000;
-    --grid-gap: 1rem;
+    --text-secondary: #a4b0be;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg-dark);
-    color: var(--text-primary);
     font-family: 'Arial', sans-serif;
+    background-color: var(--background-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
 }
 
-.layout {
+.container {
     display: grid;
-    grid-template-columns: 70% 30%;
-    grid-template-rows: 60% 40%;
+    grid-template-columns: 1fr 300px;
+    grid-template-rows: 1fr auto;
+    gap: 20px;
+    padding: 20px;
     height: 100vh;
-    gap: var(--grid-gap);
-    padding: var(--grid-gap);
 }
 
-#trackCanvas {
-    grid-column: 1;
-    grid-row: 1 / -1;
-    background: #000;
-    border-radius: 8px;
+.main-display {
+    position: relative;
+    background: var(--panel-bg);
+    border-radius: 15px;
+    overflow: hidden;
 }
 
-.telemetry-dashboard {
-    grid-column: 2;
-    grid-row: 1;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 1rem;
+.car-showcase {
+    position: relative;
+    height: 70%;
+    background: radial-gradient(circle at center, #192a56 0%, #0c1220 100%);
 }
 
-.classification-board {
-    grid-column: 2;
-    grid-row: 2;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 1rem;
+.lighting-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: pulse 2s infinite;
 }
 
-.telemetry {
-    display: grid;
-    gap: 1rem;
+.platform {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 400px;
+    height: 10px;
+    background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+    border-radius: 50%;
+    filter: blur(5px);
 }
 
-.position-info {
+.car-info {
+    padding: 20px;
+    background: rgba(0,0,0,0.5);
+}
+
+.side-panel {
+    background: var(--panel-bg);
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.weather-section {
+    background: rgba(0,0,0,0.3);
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.weather-display {
     display: flex;
     align-items: center;
-    gap: 1rem;
-}
-
-.position {
-    font-size: 4rem;
-    margin: 0;
-}
-
-.driver-name {
-    color: var(--accent-yellow);
-    margin: 0;
-}
-
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-}
-
-.speed-display {
-    font-size: 2rem;
-    text-align: center;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 .car-stats {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
+    flex: 1;
+}
+
+.stat-item {
+    margin-bottom: 15px;
+}
+
+.stat-label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--text-secondary);
+}
+
+.stat-bar {
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.stat-fill {
+    height: 100%;
+    background: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.control-panel {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+    background: var(--panel-bg);
+    border-radius: 15px;
+}
+
+.control-btn {
+    flex: 1;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.3);
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+}
+
+.control-btn:hover {
+    background: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.btn-icon {
+    font-size: 1.2em;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 0.8; }
+    100% { opacity: 0.5; }
+}
+
+@media (max-width: 1024px) {
+    .container {
+        grid-template-columns: 1fr;
+    }
+    
+    .control-panel {
+        flex-wrap: wrap;
+    }
+    
+    .control-btn {
+        min-width: 200px;
+    }
 }

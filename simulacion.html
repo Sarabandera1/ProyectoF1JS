@@ -3,30 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Simulator</title>
     <link rel="stylesheet" href="simulacion.css">
-    <script src="simulacion.js"></script>
-
-    <title>Simulación formula 1</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-        }
-        canvas {
-            width: 100vw;
-            height: 100vh;
-            display: block;
-        }
-    </style>
+    <script type="module" src="https://prod.spline.design/bYya5zo8dYJDUJJC/scene.splinecode.js"></script>
+    <script type="module" src="https://prod.spline.design/bYya5zo8dYJDUJJC/scene.splinecode.js"></script>
 </head>
 <body>
-    <canvas id="canvas3d"></canvas>
+    <div class="container">
+        <div class="main-display">
+            <div class="car-showcase">
+                <div class="lighting-effect"></div>
+                <div class="platform">
+                    <div class="car-model"></div>
+                </div>
+            </div>
+            <div class="car-info">
+                <h2 id="car-name">McLaren MCL60</h2>
+                <p id="car-description">Elije tu vehículo oficial de carreras de F1</p>
+            </div>
+        </div>
+        
+        <div class="side-panel">
+            <div class="weather-section">
+                <h3>Condiciones climáticas</h3>
+                <div id="weather-display">
+                    <span class="weather-icon">🌤️</span>
+                    <span id="weather-status">Soleado</span>
+                </div>
+            </div>
+            
+            <div class="car-stats" id="car-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Velocidad</span>
+                    <div class="stat-bar">
+                        <div class="stat-fill" style="width: 85%"></div>
+                    </div>
+                </div>
+    
+            </div>
+        </div>
 
+        <div class="control-panel">
+            <button id="weather-btn" class="control-btn">
+                <span class="btn-icon">🌦️</span>
+                Clima
+            </button>
+            <button id="config-btn" class="control-btn">
+                <span class="btn-icon">⚙️</span>
+                Configuracion vehículo
+            </button>
+            <button id="classify-btn" class="control-btn">
+                <span class="btn-icon">🏁</span>
+                Clasificación pilotos
+            </button>
+            <button id="compare-btn" class="control-btn">
+                <span class="btn-icon">📊</span>
+                Comparación vehículos
+            </button>
+            <button id="select-btn" class="control-btn">
+                <span class="btn-icon">🎯</span>
+                Selecionar vehículo
+            </button>
+        </div>
+    </div>
     <script type="module">
         import { Application } from '@splinetool/runtime';
-
+    
         const canvas = document.getElementById('canvas3d');
-        const app =('')
+        const app = new Application(canvas);
+        app.load('https://prod.spline.design/bYya5zo8dYJDUJJC/scene.splinecode');
+        <canvas id="canvas3d"></canvas>
     </script>
+    <script src="simulacion.js"></script>
 </body>
 </html>
