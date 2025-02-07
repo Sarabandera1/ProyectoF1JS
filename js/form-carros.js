@@ -1,28 +1,26 @@
-// Carros CRUD Implementation with JSON Server
-
 // Base URL for JSON Server
-const API_URL = "http://localhost:3000/carros"
+const API_URL = "http://localhost:3000/carros";
 
 // List of pilots
-const pilotos = ["Juan Pérez", "Ana López", "Carlos Martínez", "María Gómez"]
+const pilotos = ["Juan Pérez", "Ana López", "Carlos Martínez", "María Gómez"];
 
 class CarroCard extends HTMLElement {
   constructor() {
-    super()
-    this.attachShadow({ mode: "open" })
+    super();
+    this.attachShadow({ mode: "open" });
   }
 
   connectedCallback() {
-    const marca = this.getAttribute("marca")
-    const modelo = this.getAttribute("modelo")
-    const anio = this.getAttribute("anio")
-    const imagen = this.getAttribute("imagen")
-    const velocidad = this.getAttribute("velocidad")
-    const aceleracion = this.getAttribute("aceleracion")
-    const consumo = this.getAttribute("consumo")
-    const desgaste = this.getAttribute("desgaste")
-    const piloto = this.getAttribute("piloto") || "Sin asignar"
-    const id = this.getAttribute("id")
+    const marca = this.getAttribute("marca");
+    const modelo = this.getAttribute("modelo");
+    const anio = this.getAttribute("anio");
+    const imagen = this.getAttribute("imagen");
+    const velocidad = this.getAttribute("velocidad");
+    const aceleracion = this.getAttribute("aceleracion");
+    const consumo = this.getAttribute("consumo");
+    const desgaste = this.getAttribute("desgaste");
+    const piloto = this.getAttribute("piloto") || "Sin asignar";
+    const id = this.getAttribute("id");
 
     this.shadowRoot.innerHTML = `
             <style>
@@ -83,20 +81,20 @@ class CarroCard extends HTMLElement {
                 <button class="eliminar">Eliminar</button>
                 <button class="asignar">Asignar Piloto</button>
             </div>
-        `
+        `;
 
-    this.shadowRoot.querySelector(".eliminar").addEventListener("click", () => eliminarCarro(id))
-    this.shadowRoot.querySelector(".editar").addEventListener("click", () => editarCarroPrompt(id))
-    this.shadowRoot.querySelector(".asignar").addEventListener("click", () => asignarPilotoPrompt(id))
+    this.shadowRoot.querySelector(".eliminar").addEventListener("click", () => eliminarCarro(id));
+    this.shadowRoot.querySelector(".editar").addEventListener("click", () => editarCarroPrompt(id));
+    this.shadowRoot.querySelector(".asignar").addEventListener("click", () => asignarPilotoPrompt(id));
   }
 }
 
-customElements.define("carro-card", CarroCard)
+customElements.define("carro-card", CarroCard);
 
 class CarrosApp extends HTMLElement {
   constructor() {
-    super()
-    this.attachShadow({ mode: "open" })
+    super();
+    this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `
             <style>
                 .container {
@@ -136,8 +134,23 @@ class CarrosApp extends HTMLElement {
                 .carros-container {
                     margin-top: 20px;
                 }
+                .back-button {
+                    background-color: #007BFF;
+                    color: white;
+                    font-size: 16px;
+                    padding: 10px;
+                    text-align: center;
+                    cursor: pointer;
+                    margin-bottom: 20px;
+                }
+                .back-button:hover {
+                    background-color: #0056b3;
+                }
             </style>
             <div class="container">
+                <button class="back-button" onclick="window.location.href='principal.html'">
+                    &#8592; Regresar
+                </button>
                 <h1>Gestión de Carros</h1>
                 <form id="carroForm">
                     <input type="text" id="marca" placeholder="Marca" required>
@@ -152,33 +165,32 @@ class CarrosApp extends HTMLElement {
                 </form>
                 <div class="carros-container" id="carrosContainer"></div>
             </div>
-        `
+        `;
   }
 
   connectedCallback() {
-    const form = this.shadowRoot.getElementById("carroForm")
+    const form = this.shadowRoot.getElementById("carroForm");
     form.addEventListener("submit", async (event) => {
-      event.preventDefault()
-      const marca = this.shadowRoot.getElementById("marca").value
-      const modelo = this.shadowRoot.getElementById("modelo").value
-      const anio = this.shadowRoot.getElementById("anio").value
-      const imagen = this.shadowRoot.getElementById("imagen").value
-      const velocidad = this.shadowRoot.getElementById("velocidad").value
-      const aceleracion = this.shadowRoot.getElementById("aceleracion").value
-      const consumo = this.shadowRoot.getElementById("consumo").value
-      const desgaste = this.shadowRoot.getElementById("desgaste").value
-      const newCarro = await agregarCarro({ marca, modelo, anio, imagen, velocidad, aceleracion, consumo, desgaste })
+      event.preventDefault();
+      const marca = this.shadowRoot.getElementById("marca").value;
+      const modelo = this.shadowRoot.getElementById("modelo").value;
+      const anio = this.shadowRoot.getElementById("anio").value;
+      const imagen = this.shadowRoot.getElementById("imagen").value;
+      const velocidad = this.shadowRoot.getElementById("velocidad").value;
+      const aceleracion = this.shadowRoot.getElementById("aceleracion").value;
+      const consumo = this.shadowRoot.getElementById("consumo").value;
+      const desgaste = this.shadowRoot.getElementById("desgaste").value;
+      const newCarro = await agregarCarro({ marca, modelo, anio, imagen, velocidad, aceleracion, consumo, desgaste });
       if (newCarro) {
-        // Redirect to the page with car cards after successful submission
-        window.location.href = "carros.html"
+        window.location.href = "carros.html"; // Redirige a carros.html después de agregar el carro
       }
-      form.reset()
-    })
-    mostrarCarros() // This will load existing cars when the app initializes
+      form.reset();
+    });
+    mostrarCarros(); // Cargar carros existentes cuando la app se inicie
   }
 }
 
-customElements.define("carros-app", CarrosApp)
+customElements.define("carros-app", CarrosApp);
 
 async function agregarCarro(carro) {
   try {
@@ -186,37 +198,37 @@ async function agregarCarro(carro) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(carro),
-    })
-    const newCarro = await response.json()
-    return newCarro
+    });
+    const newCarro = await response.json();
+    return newCarro;
   } catch (error) {
-    console.error("Error al agregar carro:", error)
-    return null
+    console.error("Error al agregar carro:", error);
+    return null;
   }
 }
 
 async function eliminarCarro(id) {
   try {
-    await fetch(`${API_URL}/${id}`, { method: "DELETE" })
-    mostrarCarros()
+    await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+    mostrarCarros();
   } catch (error) {
-    console.error("Error al eliminar carro:", error)
+    console.error("Error al eliminar carro:", error);
   }
 }
 
 async function editarCarroPrompt(id) {
   try {
-    const response = await fetch(`${API_URL}/${id}`)
-    const carro = await response.json()
+    const response = await fetch(`${API_URL}/${id}`);
+    const carro = await response.json();
 
-    const nuevaMarca = prompt("Editar Marca:", carro.marca)
-    const nuevoModelo = prompt("Editar Modelo:", carro.modelo)
-    const nuevoAnio = prompt("Editar Año:", carro.anio)
-    const nuevaImagen = prompt("Editar URL de la Imagen:", carro.imagen)
-    const nuevaVelocidad = prompt("Editar Velocidad (km/h):", carro.velocidad)
-    const nuevaAceleracion = prompt("Editar Aceleración (s):", carro.aceleracion)
-    const nuevoConsumo = prompt("Editar Consumo (L/100km):", carro.consumo)
-    const nuevoDesgaste = prompt("Editar Desgaste (%):", carro.desgaste)
+    const nuevaMarca = prompt("Editar Marca:", carro.marca);
+    const nuevoModelo = prompt("Editar Modelo:", carro.modelo);
+    const nuevoAnio = prompt("Editar Año:", carro.anio);
+    const nuevaImagen = prompt("Editar URL de la Imagen:", carro.imagen);
+    const nuevaVelocidad = prompt("Editar Velocidad (km/h):", carro.velocidad);
+    const nuevaAceleracion = prompt("Editar Aceleración (s):", carro.aceleracion);
+    const nuevoConsumo = prompt("Editar Consumo (L/100km):", carro.consumo);
+    const nuevoDesgaste = prompt("Editar Desgaste (%):", carro.desgaste);
 
     if (
       nuevaMarca &&
@@ -237,10 +249,10 @@ async function editarCarroPrompt(id) {
         nuevaAceleracion,
         nuevoConsumo,
         nuevoDesgaste,
-      })
+      });
     }
   } catch (error) {
-    console.error("Error al obtener carro para editar:", error)
+    console.error("Error al obtener carro para editar:", error);
   }
 }
 
@@ -250,69 +262,69 @@ async function editarCarro(id, carroActualizado) {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(carroActualizado),
-    })
-    mostrarCarros()
+    });
+    mostrarCarros();
   } catch (error) {
-    console.error("Error al editar carro:", error)
+    console.error("Error al editar carro:", error);
   }
 }
 
 async function asignarPilotoPrompt(id) {
   try {
-    const container = document.querySelector("carros-app").shadowRoot.getElementById("carrosContainer")
-    container.innerHTML = "" // Clear existing content
+    const container = document.querySelector("carros-app").shadowRoot.getElementById("carrosContainer");
+    container.innerHTML = ""; // Limpiar contenido existente
 
-    const response = await fetch(API_URL)
-    const carros = await response.json()
+    const response = await fetch(API_URL);
+    const carros = await response.json();
 
     carros.forEach((carro) => {
-      const card = document.createElement("carro-card")
-      card.setAttribute("id", carro.id)
-      card.setAttribute("marca", carro.marca)
-      card.setAttribute("modelo", carro.modelo)
-      card.setAttribute("anio", carro.anio)
-      card.setAttribute("imagen", carro.imagen)
-      card.setAttribute("velocidad", carro.velocidad)
-      card.setAttribute("aceleracion", carro.aceleracion)
-      card.setAttribute("consumo", carro.consumo)
-      card.setAttribute("desgaste", carro.desgaste)
-      card.setAttribute("piloto", carro.piloto || "Sin asignar")
+      const card = document.createElement("carro-card");
+      card.setAttribute("id", carro.id);
+      card.setAttribute("marca", carro.marca);
+      card.setAttribute("modelo", carro.modelo);
+      card.setAttribute("anio", carro.anio);
+      card.setAttribute("imagen", carro.imagen);
+      card.setAttribute("velocidad", carro.velocidad);
+      card.setAttribute("aceleracion", carro.aceleracion);
+      card.setAttribute("consumo", carro.consumo);
+      card.setAttribute("desgaste", carro.desgaste);
+      card.setAttribute("piloto", carro.piloto || "Sin asignar");
 
-      container.appendChild(card)
-    })
+      container.appendChild(card);
+    });
   } catch (error) {
-    console.error("Error al mostrar carros:", error)
+    console.error("Error al mostrar carros:", error);
   }
 }
 
 async function mostrarCarros() {
   try {
-    const container = document.querySelector("carros-app").shadowRoot.getElementById("carrosContainer")
-    container.innerHTML = "" // Clear existing content
+    const container = document.querySelector("carros-app").shadowRoot.getElementById("carrosContainer");
+    container.innerHTML = ""; // Limpiar contenido existente
 
-    const response = await fetch(API_URL)
-    const carros = await response.json()
+    const response = await fetch(API_URL);
+    const carros = await response.json();
 
     carros.forEach((carro) => {
-      const card = document.createElement("carro-card")
-      card.setAttribute("id", carro.id)
-      card.setAttribute("marca", carro.marca)
-      card.setAttribute("modelo", carro.modelo)
-      card.setAttribute("anio", carro.anio)
-      card.setAttribute("imagen", carro.imagen)
-      card.setAttribute("velocidad", carro.velocidad)
-      card.setAttribute("aceleracion", carro.aceleracion)
-      card.setAttribute("consumo", carro.consumo)
-      card.setAttribute("desgaste", carro.desgaste)
-      card.setAttribute("piloto", carro.piloto || "Sin asignar")
+      const card = document.createElement("carro-card");
+      card.setAttribute("id", carro.id);
+      card.setAttribute("marca", carro.marca);
+      card.setAttribute("modelo", carro.modelo);
+      card.setAttribute("anio", carro.anio);
+      card.setAttribute("imagen", carro.imagen);
+      card.setAttribute("velocidad", carro.velocidad);
+      card.setAttribute("aceleracion", carro.aceleracion);
+      card.setAttribute("consumo", carro.consumo);
+      card.setAttribute("desgaste", carro.desgaste);
+      card.setAttribute("piloto", carro.piloto || "Sin asignar");
 
-      container.appendChild(card)
-    })
+      container.appendChild(card);
+    });
   } catch (error) {
-    console.error("Error al mostrar carros:", error)
+    console.error("Error al mostrar carros:", error);
   }
 }
 
-// Start the app
-document.body.innerHTML = `<carros-app></carros-app>`
-mostrarCarros()
+// Inicia la app
+document.body.innerHTML = `<carros-app></carros-app>`;
+mostrarCarros();

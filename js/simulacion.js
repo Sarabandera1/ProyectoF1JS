@@ -1,49 +1,54 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
     const weatherBtn = document.getElementById('weather-btn');
     const configBtn = document.getElementById('config-btn');
     const classifyBtn = document.getElementById('classify-btn');
     const compareBtn = document.getElementById('compare-btn');
     const selectBtn = document.getElementById('select-btn');
+    const registerBtn = document.getElementById('register-btn');
     const weatherStatus = document.getElementById('weather-status');
     const carStats = document.getElementById('car-stats');
-    
-    
+    const carName = document.getElementById('car-name');
+    const carDescription = document.getElementById('car-description');
+    const carImageContainer = document.getElementById('car-image-container');
+
     const weatherTypes = [
-        { name: 'soleado', icon: '🌤', effect: 1 },
-        { name: 'lluvioso', icon: '🌧', effect: 0.8 },
-        { name: 'clima extremo', icon: '⛈', effect: 0.6 }
+        { name: 'Soleado', icon: '🌤', effect: 1 },
+        { name: 'Lluvioso', icon: '🌧', effect: 0.8 },
+        { name: 'Clima Extremo', icon: '⛈', effect: 0.6 }
     ];
-    
-    const cars = [
+
+    let cars = [
         {
             name: 'Red Bull RB19',
+            image: './img/fcarroNaranja.jpg',
             stats: {
                 Velocidad: 95,
-                aceleracion: 92,
-                manejo: 90,
-                consumoDeCombustible: 88,
-                desgasteNeumaticos: 85
+                Aceleracion: 92,
+                Manejo: 90,
+                ConsumoDeCombustible: 88,
+                DesgasteNeumaticos: 85
             }
         },
         {
             name: 'Ferrari SF-23',
+            image: './img/fcarroRojo.jpg',
             stats: {
                 Velocidad: 60,
-                aceleracion: 90,
-                manejo: 70,
-                consumoDeCombustible: 59,
-                desgasteNeumaticos: 85
+                Aceleracion: 90,
+                Manejo: 70,
+                ConsumoDeCombustible: 59,
+                DesgasteNeumaticos: 85
             }
         },
         {
             name: 'Mercedes W14',
+            image: './img/fcarroNegro.jpg',
             stats: {
                 Velocidad: 65,
-                aceleracion: 90,
-                manejo: 90,
-                consumoDeCombustible: 93,
-                desgasteNeumaticos: 30
+                Aceleracion: 90,
+                Manejo: 90,
+                ConsumoDeCombustible: 93,
+                DesgasteNeumaticos: 30
             }
         }
     ];
@@ -67,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         `).join('');
-        
+
         carStats.innerHTML = statsHTML;
     }
 
@@ -77,13 +82,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function updateCarImage(car) {
+        carImageContainer.innerHTML = `<img src="${car.image}" alt="${car.name}" class="car-image">`;
+    }
+
     function classifyDrivers() {
         const results = cars.map(car => {
             const baseTime = 80; 
             const weatherImpact = (1 - currentWeather.effect) * 10;
-            const carPerformance = (car.stats.speed + car.stats.handling) / 200;
+            const carPerformance = (car.stats.Velocidad + car.stats.Manejo) / 200;
             const randomFactor = Math.random() * 2 - 1;
-            
+
             return {
                 name: car.name,
                 time: baseTime + weatherImpact - (carPerformance * 5) + randomFactor
@@ -101,9 +110,32 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    
+    function registerCar() {
+        const name = prompt("Ingrese el nombre del carro:");
+        if (!name) return;
+
+        const image = prompt("Ingrese la URL de la imagen del carro:");
+        if (!image) return;
+
+        const stats = {};
+        const statNames = ['Velocidad', 'Aceleracion', 'Manejo', 'ConsumoDeCombustible', 'DesgasteNeumaticos'];
+
+        for (const stat of statNames) {
+            const value = parseInt(prompt(`Ingrese el valor para ${stat} (0-100):`));
+            if (isNaN(value) || value < 0 || value > 100) {
+                alert("Valor inválido. El registro ha sido cancelado.");
+                return;
+            }
+            stats[stat] = value;
+        }
+
+        const newCar = { name, image, stats };
+        cars.push(newCar);
+        alert(`${name} ha sido registrado exitosamente.`);
+    }
+
     weatherBtn.addEventListener('click', updateWeather);
-    
+
     configBtn.addEventListener('click', () => {
         if (!currentCar) {
             alert('Por favor, seleccione un carro primero');
@@ -121,9 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('');
         carStats.innerHTML = configHTML;
     });
-    
+
     classifyBtn.addEventListener('click', classifyDrivers);
-    
+
     compareBtn.addEventListener('click', () => {
         const comparisonHTML = cars.map(car => `
             <div class="car-comparison">
@@ -140,10 +172,17 @@ document.addEventListener('DOMContentLoaded', () => {
         `).join('<hr>');
         carStats.innerHTML = comparisonHTML;
     });
-    
+
     selectBtn.addEventListener('click', () => {
         currentCar = cars[Math.floor(Math.random() * cars.length)];
-        document.getElementById('car-name').textContent = currentCar.name;
+        carName.textContent = currentCar.name;
+        carDescription.textContent = `Vehículo seleccionado: ${currentCar.name}`;
         updateCarStats(currentCar);
+        updateCarImage(currentCar);
     });
+
+    registerBtn.addEventListener('click', registerCar);
+
+    // Selecciona un carro al iniciar
+    selectBtn.click();
 });

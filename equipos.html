@@ -3,138 +3,329 @@
 
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="css/equipos.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Registro de Equipo</title>
+  <title>Registro de Equipos</title>
+  <style>
+    /* Estilos generales */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #1e1e2f;
+      color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffbf00;
+      margin: 20px 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+      color: #ffbf00;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: #ffbf00;
+      box-shadow: 0 0 5px rgba(255, 191, 0, 0.8);
+    }
+
+    button {
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: all 0.3s ease;
+    }
+
+    .btn-submit {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    .btn-submit:hover {
+      background-color: #218838;
+      transform: scale(1.05);
+    }
+
+    .btn-edit {
+      background-color: #ffc107;
+      color: #1e1e2f;
+      margin-right: 5px;
+    }
+
+    .btn-edit:hover {
+      background-color: #e0a800;
+    }
+
+    .btn-delete {
+      background-color: #dc3545;
+      color: #fff;
+    }
+
+    .btn-delete:hover {
+      background-color: #c82333;
+    }
+
+    .btn-back {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 15px;
+      background-color: #007bff;
+      color: #ffffff;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-back:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    .btn-back svg {
+      margin-right: 5px;
+    }
+
+    .team-container {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .team-card {
+      background-color: #2a2a3c;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .team-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .team-card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .team-card h3 {
+      color: #ffbf00;
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+
+    .team-card p {
+      margin: 5px 0;
+    }
+
+    .form-container {
+      background-color: #2a2a3c;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .team-card img {
+        height: 140px;
+      }
+    }
+  </style>
 </head>
 
-<body class="background">
-  <div class="card"> 
-    <div class="card-header">
-      <h2>Registro de Equipo</h2>
-    </div>
-    <form id="formCrearEquipo">
-      <div class="codigo" style="display:none;">
-        <label for="idEquipo" class="form-label">COD</label>
-        <input type="number" class="form-control" id="idEquipo" name="idEquipo" placeholder="${idEquipo}" disabled>
-      </div>
-      <div class="form-grid">
-        <div class="form-group">
-          <label class="form-label" for="nombreEquipo">Nombre del equipo</label>
-          <input type="text" class="form-control" id="nombreEquipo" name="nombreEquipo" placeholder="Ingrese el nombre del equipo" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="paisEquipo">País</label>
-          <input type="text" class="form-control" id="paisEquipo" name="paisEquipo" placeholder="Ingrese el país" required>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="motorEquipo">Motor</label>
-          <input type="text" class="form-control" id="motorEquipo" name="motorEquipo" placeholder="Especifique el motor" required>
-        </div>
-        <div class="form-group">
-          <label for="nombrePiloto1" class="form-label">Piloto Principal</label>
-          <select class="nombrePilotoVeh form-control" name="nombrePiloto1" required>
-            <option value="">Seleccionar Piloto</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="nombrePiloto2" class="form-label">Piloto Secundario</label>
-          <select class="nombrePilotoVeh form-control" name="nombrePiloto2" required>
-            <option value="">Seleccionar Piloto</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="imagenEquipo">Imagen del Equipo</label>
-          <div class="image-upload-container" id="dropZone">
-            <i>📁</i>
-            <p class="image-upload-text">Arrastra una imagen aquí o haga clic para seleccionar</p>
-            <input type="file" class="file-input" id="imagenEquipo" name="imagenEquipo" accept="image/*" required>
-          </div>
-          <div class="preview-container">
-            <img class="preview-image" id="imagePreview" alt="Preview">
-          </div>
-        </div>
-      </div>
-      <button id="btnRegistrar" type="submit" class="btn-submit">Registrar Equipo</button>
-      <div id="statusMessage" class="status-message"></div>
-    </form>
+<body>
+  <!-- Botón para regresar a principal.html -->
+  <div class="container">
+    <a href="principal.html" class="btn-back">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      Volver a Principal
+    </a>
   </div>
+
+  <h1>Registro de Equipos de Carreras</h1>
+  <div class="container">
+    <div class="form-container">
+      <form id="teamForm">
+        <div class="form-group">
+          <label for="teamName">Nombre del Equipo:</label>
+          <input type="text" id="teamName" placeholder="Nombre del equipo" required />
+        </div>
+        <div class="form-group">
+          <label for="country">País:</label>
+          <input type="text" id="country" placeholder="País del equipo" required />
+        </div>
+        <div class="form-group">
+          <label for="engine">Motor:</label>
+          <input type="text" id="engine" placeholder="Motor del equipo" required />
+        </div>
+        <div class="form-group">
+          <label for="pilot1">Piloto Principal:</label>
+          <select id="pilot1" required>
+            <option value="">Seleccionar piloto</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pilot2">Piloto Secundario:</label>
+          <select id="pilot2" required>
+            <option value="">Seleccionar piloto</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="image">Imagen del Equipo:</label>
+          <input type="file" id="image" accept="image/*" />
+        </div>
+        <button type="submit" class="btn-submit">Registrar Equipo</button>
+      </form>
     </div>
-    <div id="contenedorEquipos" class="contenedor-equipos">
-      <!-- Las tarjetas de los equipos se generarán dinámicamente aquí -->
-    </div>    
+
+    <div class="team-container" id="teamContainer">
+      <!-- Aquí se cargarán las tarjetas de equipos -->
+    </div>
   </div>
   <script>
-    // Obtener los elementos del formulario
-    const form = document.getElementById('formCrearEquipo');
-    const nombreEquipoInput = document.getElementById('nombreEquipo');
-    const paisEquipoInput = document.getElementById('paisEquipo');
-    const motorEquipoInput = document.getElementById('motorEquipo');
-    const piloto1Select = document.querySelector('select[name="nombrePiloto1"]');
-    const piloto2Select = document.querySelector('select[name="nombrePiloto2"]');
-    const imagenEquipoInput = document.getElementById('imagenEquipo');
-    const btnRegistrar = document.getElementById('btnRegistrar');
-    const statusMessage = document.getElementById('statusMessage');
-    
-    // Función para almacenar los datos del equipo en el localStorage
-    function guardarEquipo(equipo) {
-      let equipos = JSON.parse(localStorage.getItem('equipos')) || [];
-      equipos.push(equipo);
-      localStorage.setItem('equipos', JSON.stringify(equipos));
-    }
-    
-    // Función para cargar los datos y mostrar las tarjetas
-    function mostrarEquipos() {
-      const equipos = JSON.parse(localStorage.getItem('equipos')) || [];
-      const contenedorEquipos = document.getElementById('contenedorEquipos');
-      
-      contenedorEquipos.innerHTML = '';
-      
-      equipos.forEach((equipo) => {
-        const tarjeta = document.createElement('div');
-        tarjeta.classList.add('equipo-card');
-        tarjeta.innerHTML = `
-          <h3>${equipo.nombreEquipo}</h3>
-          <p><strong>País:</strong> ${equipo.paisEquipo}</p>
-          <p><strong>Motor:</strong> ${equipo.motorEquipo}</p>
-          <p><strong>Piloto Principal:</strong> ${equipo.piloto1}</p>
-          <p><strong>Piloto Secundario:</strong> ${equipo.piloto2}</p>
-          <img src="${equipo.imagenEquipo}" alt="${equipo.nombreEquipo}" class="equipo-image"/>
-        `;
-        contenedorEquipos.appendChild(tarjeta);
+    // Datos iniciales de pilotos
+    const pilotos = ["Juan Pérez", "Ana López", "Carlos Díaz", "Laura Martínez", "Pedro González"];
+
+    // Referencias a elementos del DOM
+    const teamForm = document.getElementById("teamForm");
+    const pilot1Select = document.getElementById("pilot1");
+    const pilot2Select = document.getElementById("pilot2");
+    const teamContainer = document.getElementById("teamContainer");
+
+    // Función para cargar pilotos en los selectores
+    function loadPilots() {
+      pilotos.forEach((pilot) => {
+        const option1 = document.createElement("option");
+        const option2 = document.createElement("option");
+        option1.value = pilot;
+        option1.textContent = pilot;
+        option2.value = pilot;
+        option2.textContent = pilot;
+        pilot1Select.appendChild(option1);
+        pilot2Select.appendChild(option2);
       });
     }
-    
-    // Función que maneja la acción de registro del equipo
-    form.addEventListener('submit', function (event) {
-      event.preventDefault();  // Evita que el formulario se envíe normalmente
-    
-      const equipo = {
-        nombreEquipo: nombreEquipoInput.value,
-        paisEquipo: paisEquipoInput.value,
-        motorEquipo: motorEquipoInput.value,
-        piloto1: piloto1Select.value,
-        piloto2: piloto2Select.value,
-        imagenEquipo: URL.createObjectURL(imagenEquipoInput.files[0]),
+
+    // Función para guardar un equipo en localStorage
+    function saveTeam(team) {
+      const teams = JSON.parse(localStorage.getItem("teams")) || [];
+      teams.push(team);
+      localStorage.setItem("teams", JSON.stringify(teams));
+    }
+
+    // Función para cargar equipos desde localStorage
+    function loadTeams() {
+      const teams = JSON.parse(localStorage.getItem("teams")) || [];
+      teamContainer.innerHTML = "";
+      teams.forEach((team, index) => {
+        const card = document.createElement("div");
+        card.classList.add("team-card");
+        card.innerHTML = `
+          <img src="${team.image}" alt="Imagen del equipo">
+          <h3>${team.name}</h3>
+          <p><strong>País:</strong> ${team.country}</p>
+          <p><strong>Motor:</strong> ${team.engine}</p>
+          <p><strong>Piloto Principal:</strong> ${team.pilot1}</p>
+          <p><strong>Piloto Secundario:</strong> ${team.pilot2}</p>
+          <button class="btn-edit" onclick="editTeam(${index})">Editar</button>
+          <button class="btn-delete" onclick="deleteTeam(${index})">Eliminar</button>
+        `;
+        teamContainer.appendChild(card);
+      });
+    }
+
+    // Función para manejar el formulario de registro
+    teamForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const team = {
+        name: document.getElementById("teamName").value,
+        country: document.getElementById("country").value,
+        engine: document.getElementById("engine").value,
+        pilot1: pilot1Select.value,
+        pilot2: pilot2Select.value,
+        image: document.getElementById("image").files[0]
+          ? URL.createObjectURL(document.getElementById("image").files[0])
+          : "https://via.placeholder.com/300x160", // Imagen por defecto
       };
-    
-      // Guardar el equipo en el localStorage
-      guardarEquipo(equipo);
-    
-      // Mostrar un mensaje de éxito
-      statusMessage.textContent = 'Equipo registrado con éxito';
-    
-      // Limpiar los campos del formulario
-      form.reset();
-    
-      // Mostrar las tarjetas con los equipos registrados
-      mostrarEquipos();
+
+      saveTeam(team);
+      teamForm.reset();
+      loadTeams();
     });
-    
-    // Mostrar los equipos registrados al cargar la página
-    window.onload = mostrarEquipos;
-    </script>
-    
+
+    // Función para editar un equipo
+    function editTeam(index) {
+      const teams = JSON.parse(localStorage.getItem("teams"));
+      const team = teams[index];
+
+      document.getElementById("teamName").value = team.name;
+      document.getElementById("country").value = team.country;
+      document.getElementById("engine").value = team.engine;
+      pilot1Select.value = team.pilot1;
+      pilot2Select.value = team.pilot2;
+
+      teams.splice(index, 1); // Eliminar el equipo para re-registrarlo actualizado
+      localStorage.setItem("teams", JSON.stringify(teams));
+      loadTeams();
+    }
+
+    // Función para eliminar un equipo
+    function deleteTeam(index) {
+      const teams = JSON.parse(localStorage.getItem("teams"));
+      teams.splice(index, 1);
+      localStorage.setItem("teams", JSON.stringify(teams));
+      loadTeams();
+    }
+
+    // Inicializar
+    loadPilots();
+    loadTeams();
+  </script>
 </body>
 
 </html>

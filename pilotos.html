@@ -1,40 +1,179 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="stylesheet" href="css/piloto.css"><title>Piloto</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="css/form-pilotos.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Piloto</title>
 </head>
-<body>
-    <div class="container">
-        <div class="card" onclick="showInfo('JANEL', 'Leader of the team, known for aggressive driving.')">
-          <img src="img/max.jpeg" alt="JANEL">
-          <h2>JANEL</h2>
-          <p class="role">Leader</p>
-        </div>
-        
-        <div class="card" onclick="showInfo('HAMEL', 'A strategic second driver with great overtaking skills.')">
-          <img src="img/lando2.jpeg" alt="HAMEL">
-          <h2>HAMEL</h2>
-          <p class="role">Second</p>
-        </div>
-        
-        <div class="card" onclick="showInfo('DEVEL', 'Young talent with high potential and fast reflexes.')">
-          <img src="img/charles.jpeg" alt="DEVEL">
-          <h2>DEVEL</h2>
-          <p class="role">Second</p>
-        </div>
+
+<body class="background">
+  <div class="card">
+    <div class="card-header">
+      <button onclick="window.location.href='principal.html'" class="btn-back">&#8592; Volver</button>
+      <h2>Registro de Piloto</h2>
     </div>
-
-    <a href="form-pilotos.html" class="register-btn">Registrar Piloto</a>
-
-    <div class="modal" id="infoModal">
-      <div class="modal-content">
-        <h2 id="driverName"></h2>
-        <p id="driverInfo"></p>
-        <button class="close-btn" onclick="closeModal()">Cerrar</button>
+    <form id="formCrearPiloto">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label" for="nombrePiloto">Nombre del Piloto</label>
+          <input type="text" class="form-control" id="nombrePiloto" name="nombrePiloto" placeholder="Ingrese el nombre del piloto" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="edadPiloto">Edad</label>
+          <input type="number" class="form-control" id="edadPiloto" name="edadPiloto" placeholder="Ingrese la edad del piloto" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="paisPiloto">País</label>
+          <input type="text" class="form-control" id="paisPiloto" name="paisPiloto" placeholder="Ingrese el país del piloto" required>
+        </div>
+        <div class="form-group">
+          <label for="equipoPiloto" class="form-label">Equipo</label>
+          <select class="form-control" name="equipoPiloto" id="equipoPiloto" required>
+            <option value="">Seleccionar Equipo</option>
+            <!-- Opciones de equipos cargadas dinámicamente -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="imagenPiloto">Imagen del Piloto</label>
+          <div class="image-upload-container" id="dropZonePiloto">
+            <i>📁</i>
+            <p class="image-upload-text">Arrastra una imagen aquí o haz clic para seleccionar</p>
+            <input type="file" class="file-input" id="imagenPiloto" name="imagenPiloto" accept="image/*" required>
+          </div>
+          <div class="preview-container">
+            <img class="preview-image" id="imagePreviewPiloto" alt="Preview">
+          </div>
+        </div>
       </div>
-    </div>
+      <button id="btnRegistrarPiloto" type="submit" class="btn-submit">Registrar Piloto</button>
+      <div id="statusMessagePiloto" class="status-message"></div>
+    </form>
+  </div>
+
+  <div id="contenedorPilotos" class="contenedor-equipos">
+    <!-- Las tarjetas de los pilotos se generarán dinámicamente aquí -->
+  </div>
+
+  <script>
+    const form = document.getElementById('formCrearPiloto');
+    const statusMessage = document.getElementById('statusMessagePiloto');
+    const equipoSelect = document.getElementById('equipoPiloto');
+    const contenedorPilotos = document.getElementById('contenedorPilotos');
+
+    // Lista de equipos simulada
+    const equipos = [
+      { id: 1, nombre: 'Red Bull Racing' },
+      { id: 2, nombre: 'Mercedes' },
+      { id: 3, nombre: 'Ferrari' },
+      { id: 4, nombre: 'McLaren' }
+    ];
+
+    // Cargar los equipos en el formulario
+    equipos.forEach(equipo => {
+      const option = document.createElement('option');
+      option.value = equipo.nombre;
+      option.textContent = equipo.nombre;
+      equipoSelect.appendChild(option);
+    });
+
+    // Guardar los pilotos en localStorage
+    function guardarPiloto(piloto) {
+      const pilotos = JSON.parse(localStorage.getItem('pilotos')) || [];
+      pilotos.push(piloto);
+      localStorage.setItem('pilotos', JSON.stringify(pilotos));
+    }
+
+    // Mostrar los pilotos registrados
+    function mostrarPilotos() {
+      const pilotos = JSON.parse(localStorage.getItem('pilotos')) || [];
+      contenedorPilotos.innerHTML = '';
+
+      pilotos.forEach((piloto, index) => {
+        const tarjeta = document.createElement('div');
+        tarjeta.classList.add('equipo-card');
+        tarjeta.innerHTML = `
+          <h3>${piloto.nombrePiloto}</h3>
+          <p><strong>Edad:</strong> ${piloto.edadPiloto}</p>
+          <p><strong>País:</strong> ${piloto.paisPiloto}</p>
+          <p><strong>Equipo:</strong> ${piloto.equipoPiloto}</p>
+          <img src="${piloto.imagenPiloto}" alt="${piloto.nombrePiloto}" class="equipo-image"/>
+          <button class="btn-edit" onclick="editarPiloto(${index})">Editar</button>
+          <button class="btn-delete" onclick="eliminarPiloto(${index})">Eliminar</button>
+        `;
+        contenedorPilotos.appendChild(tarjeta);
+      });
+    }
+
+    // Eliminar un piloto
+    function eliminarPiloto(index) {
+      const pilotos = JSON.parse(localStorage.getItem('pilotos')) || [];
+      pilotos.splice(index, 1);
+      localStorage.setItem('pilotos', JSON.stringify(pilotos));
+      mostrarPilotos();
+    }
+
+    // Editar un piloto
+    function editarPiloto(index) {
+      const pilotos = JSON.parse(localStorage.getItem('pilotos')) || [];
+      const piloto = pilotos[index];
+
+      document.getElementById('nombrePiloto').value = piloto.nombrePiloto;
+      document.getElementById('edadPiloto').value = piloto.edadPiloto;
+      document.getElementById('paisPiloto').value = piloto.paisPiloto;
+      document.getElementById('equipoPiloto').value = piloto.equipoPiloto;
+
+      form.onsubmit = (e) => {
+        e.preventDefault();
+
+        pilotos[index] = {
+          nombrePiloto: document.getElementById('nombrePiloto').value,
+          edadPiloto: document.getElementById('edadPiloto').value,
+          paisPiloto: document.getElementById('paisPiloto').value,
+          equipoPiloto: document.getElementById('equipoPiloto').value,
+          imagenPiloto: document.getElementById('imagenPiloto').files[0]
+            ? URL.createObjectURL(document.getElementById('imagenPiloto').files[0])
+            : piloto.imagenPiloto,
+        };
+
+        localStorage.setItem('pilotos', JSON.stringify(pilotos));
+        mostrarPilotos();
+        form.reset();
+        statusMessage.textContent = 'Piloto editado con éxito';
+        setTimeout(() => {
+          statusMessage.textContent = '';
+        }, 3000);
+
+        form.onsubmit = registrarPiloto;
+      };
+    }
+
+    // Registrar un nuevo piloto
+    function registrarPiloto(e) {
+      e.preventDefault();
+
+      const piloto = {
+        nombrePiloto: document.getElementById('nombrePiloto').value,
+        edadPiloto: document.getElementById('edadPiloto').value,
+        paisPiloto: document.getElementById('paisPiloto').value,
+        equipoPiloto: document.getElementById('equipoPiloto').value,
+        imagenPiloto: URL.createObjectURL(document.getElementById('imagenPiloto').files[0]),
+      };
+
+      guardarPiloto(piloto);
+      mostrarPilotos();
+
+      statusMessage.textContent = 'Piloto registrado con éxito';
+      setTimeout(() => {
+        statusMessage.textContent = '';
+      }, 3000);
+
+      form.reset();
+    }
+
+    form.addEventListener('submit', registrarPiloto);
+    document.addEventListener('DOMContentLoaded', mostrarPilotos);
+  </script>
 </body>
 </html>

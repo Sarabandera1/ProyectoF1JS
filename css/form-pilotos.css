@@ -1,102 +1,229 @@
-/* Estilo general de las tarjetas */
+/* General Styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
 
-body{
-    background-image: url(../img/calendario2.jpg);
-  }
-  
-  .card {
-      background-color: rgba(0, 0, 0, 0.7);
-      border-radius: 10px;
-      padding: 20px;
-      width: 90%;
-      max-width: 800px;
-      margin: 20px;
-    }
-    
-    .card-header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    
-    .card-header h2 {
-      font-size: 24px;
-    }
-    
-    /* Estilo para el formulario */
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .form-label {
-      margin-bottom: 8px;
-      font-size: 16px;
-    }
-    
-    .form-control {
-      padding: 10px;
-      border-radius: 5px;
-      border: none;
-      background-color: #fff;
-      font-size: 16px;
-    }
-    
-    .form-control:focus {
-      outline: none;
-      border: 2px solid #4CAF50;
-    }
-    
-    .btn-submit {
-      background-color: #4CAF50;
-      color: white;
-      padding: 12px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-      width: 100%;
-      margin-top: 20px;
-    }
-    
-    .btn-submit:hover {
-      background-color: #45a049;
-    }
-    
-    #statusMessagePiloto {
-      margin-top: 10px;
-      font-size: 14px;
-    }
-    
-    /* Estilo para la carga de imagen */
-    .image-upload-container {
-      text-align: center;
-      padding: 20px;
-      border: 2px dashed #ddd;
-      border-radius: 5px;
-      margin-top: 10px;
-    }
-    
-    .image-upload-text {
-      font-size: 16px;
-      color: #777;
-    }
-    
-    .preview-container {
-      display: none;
-      text-align: center;
-      margin-top: 10px;
-    }
-    
-    .preview-image {
-      width: 100px;
-      height: auto;
-      border-radius: 5px;
-      margin-top: 10px;
-    }
-    
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #8e44ad, #3498db);
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  max-width: 600px;
+  width: 100%;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card-header h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #444;
+}
+
+.btn-back {
+  background: #6c5ce7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+  background: #5a4db2;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-label {
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.form-control {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #6c5ce7;
+  box-shadow: 0 0 4px rgba(108, 92, 231, 0.5);
+}
+
+.image-upload-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.image-upload-container:hover {
+  background-color: #f9f9f9;
+  border-color: #6c5ce7;
+}
+
+.image-upload-text {
+  margin: 8px 0 0;
+  color: #777;
+  font-size: 0.9rem;
+}
+
+.preview-container {
+  margin-top: 12px;
+  text-align: center;
+}
+
+.preview-image {
+  max-width: 100px;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.btn-submit {
+  width: 100%;
+  background: #6c5ce7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-submit:hover {
+  background: #5a4db2;
+}
+
+.btn-submit:active {
+  transform: scale(0.98);
+}
+
+.btn-edit,
+.btn-delete {
+  background: #f1c40f;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  margin: 4px;
+}
+
+.btn-edit:hover {
+  background: #d4ac0d;
+}
+
+.btn-delete {
+  background: #e74c3c;
+}
+
+.btn-delete:hover {
+  background: #c0392b;
+}
+
+.status-message {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: #6c5ce7;
+  text-align: center;
+}
+
+/* Card Styles for Pilots */
+.equipo-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.equipo-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.equipo-card h3 {
+  margin: 0 0 8px;
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.equipo-card p {
+  margin: 4px 0;
+  color: #555;
+}
+
+.equipo-image {
+  max-width: 100px;
+  margin: 10px auto;
+  border-radius: 50%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.contenedor-equipos {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  padding: 0 10px;
+}
+
+.equipo-card .btn-edit,
+.equipo-card .btn-delete {
+  display: inline-block;
+  width: 100px;
+  margin: 10px 5px 0;
+}
+
+.equipo-card .btn-edit {
+  background-color: #f1c40f;
+}
+
+.equipo-card .btn-delete {
+  background-color: #e74c3c;
+}

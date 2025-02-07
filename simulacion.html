@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F1 Simulator</title>
+    <link rel="stylesheet" href="css/simulacion.css">
+</head>
+<body>
+    <div class="container">
+        <div class="main-display">
+            <div class="car-showcase">
+                <div id="car-image-container" class="car-image-container">
+                    <img src="img/rojo.jpg" alt="">
+                </div>
+                <div class="lighting-effect"></div>
+                <div class="platform"></div>
+            </div>
+            <div class="car-info">
+                <h2 id="car-name">McLaren MCL60</h2>
+                <p id="car-description">Elije tu vehículo oficial de carreras de F1</p>
+            </div>
+        </div>
+        
+        <div class="side-panel">
+            <div class="weather-section">
+                <h3>Condiciones climáticas</h3>
+                <div id="weather-display">
+                    <span class="weather-icon">🌤</span>
+                    <span id="weather-status">Soleado</span>
+                </div>
+            </div>
+            
+            <div class="car-stats" id="car-stats">
+                <img src="img/azul.jpg" alt="">
+            </div>
+        </div>
+
+        <div class="control-panel">
+            <button id="weather-btn" class="control-btn">
+                <span class="btn-icon">🌦</span>
+                Clima
+            </button>
+            <button id="config-btn" class="control-btn">
+                <span class="btn-icon">⚙</span>
+                Configuracion vehículo
+            </button>
+            <button id="classify-btn" class="control-btn">
+                <span class="btn-icon">🏁</span>
+                Clasificación pilotos
+            </button>
+            <button id="compare-btn" class="control-btn">
+                <span class="btn-icon">📊</span>
+                Comparación vehículos
+            </button>
+            <button id="select-btn" class="control-btn">
+                <span class="btn-icon">🎯</span>
+                Selecionar vehículo
+            </button>
+            <button id="register-btn" class="control-btn">
+                <span class="btn-icon">📝</span>
+                Registrar vehículo
+            </button>
+        </div>
+    </div>
+    
+    <script src="js/simulacion.js"></script>
+</body>
+</html>
